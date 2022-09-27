@@ -10,6 +10,9 @@
 \usepackage{array}
 \usepackage{multirow}
 % \usepackage{amsmath}
+\usepackage{amssymb,mathtools}
+
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 
 \def\suptitle{}
 \def\subtitle{}
@@ -86,18 +89,10 @@ Monday and Wednesday 4:30 -- 5:30 PM, or by appointment.
 \noindent
 {\footnotesize (This is when you come and talk to me if you have any questions. Do not hesitate to make appointments with me if regular office hours don't work for you!)}
 
-\section{TA} 
-TBD
+\section{Teaching Assistant} 
+Yuk Shing Lam (\email{ylam14@ucsc.edu})
 
 \section{Textbook} We will follow \textit{\color{MidnightBlue} An Illustrated Theory of Numbers} by Martin H Weissman, focusing on Chapters 1 - 8. See \href{http://illustratedtheoryofnumbers.com/}{the book page} for more information on this book. 
-
-\section{Learning Outcomes}
-\begin{itemize}
-	\item Familiarize Ideas and problems in number theory that play essential roles in modern mathematics.
-	\item Understand the roles of theorems, proofs, and counterexamples. 
-	\item Develop problem-solving skills.
-	\item Practice clear, concise, and precise mathematical writing.
-\end{itemize}	
 
 \section{Course Schedule} 
 The following is a tentative course schedule. 
@@ -129,9 +124,42 @@ The following is a tentative course schedule.
 	\end{tabular}
 \end{center}
 
+\section{Learning Outcomes}
+\begin{itemize}
+	\item Familiarize Ideas and problems in number theory that play essential roles in modern mathematics.
+	\item Understand the roles of theorems, proofs, and counterexamples. 
+	\item Develop problem-solving skills.
+	\item Practice clear, concise, and precise mathematical writing.
+\end{itemize}	
+
 \section{Grade} 
 The grade will be based on: Quizzes (10\%), Glossary
 (10\%), Homework (30\%), Midterm (20\%), and Final (30\%). 
+We will use the following grading scheme (but curve may apply).
+\begin{center}
+	\begin{tabular}{||C{0.2\textwidth}|C{0.1\textwidth}||}
+		\hline 
+		Total scores & Grade \\
+		\hline 
+		$\geqslant 98$ & A$+$ \\
+		$90$ -- $97$ & A \\
+		$88$ -- $89$ & A$-$ \\
+		\hline 
+		$85$ -- $87$ & B$+$ \\
+		$78$ -- $84$ & B \\
+		$75$ -- $77$ & B$-$ \\
+		\hline 
+		$70$ -- $74$ & C$+$ \\
+		$60$ -- $69$ & C \\
+		\hline 
+		$55$ -- $59$ & C$-$ \\
+		$40$ -- $54$ & D \\
+		$< 40$ & F \\
+		\hline 
+	\end{tabular}
+\end{center}
+
+To pass the course, your grade should be at least C.
 
 \section{Guidelines}
 \subsection{Quizzes}
@@ -139,6 +167,7 @@ The grade will be based on: Quizzes (10\%), Glossary
 	\item Prepare a draft paper at the beginning of each meeting and write down your \emph{name} and \emph{student ID} on it. 
 	\item There may or may not be a quiz near the end of the meeting. If there is, you are expected to finish it in \emph{at most 5 minutes}, and I will show you the answer after that. 
 	\item The quizzes will be collected \emph{when the meeting ends}. Even if there is no quiz in one meeting, I will still collect the draft paper with your name and student ID as a participation record. 
+	\item To obtain the full grade, one need to attend at least 25 meetings. 
 \end{enumerate}
 
 \subsection{Glossary}
@@ -156,6 +185,7 @@ The grade will be based on: Quizzes (10\%), Glossary
 	\item Pay close attention to the presentation and the clarity of your reasoning. This course is writing-intensive.
 	\item List the \emph{references} you have used in your answer. You should avoid using resources that solve the problem immediately. 
 	\item To submit the homework, navigate to the Homework page and upload the \emph{compiled PDF} file (not the .tex file) to Gradescope. 
+	% \item The lowest one will be draopped.
 \end{enumerate}
 
 \subsection{Midterm}
@@ -228,7 +258,7 @@ In addition to CARE, these resources are available to you:
 The University of California, Santa Cruz is committed to maintaining an objective, civil, diverse, and supportive community, free of coercion, bias, hate, intimidation, dehumanization, or exploitation. The Hate/Bias Response Team is a group of administrators who support and guide students seeking assistance in determining how to handle a bias incident involving another student, a staff member, or a faculty member. To report an incident of hate or bias, please use the following form: \href{https://ucsc-advocate.symplicity.com/care_report/index.php/}{Hate/Bias Report Form}.
 
 \section{Religious Accommodation}
-UC Santa Cruz welcomes a diversity of religious beliefs and practices, recognizing the contributions differing experiences and viewpoints can bring to the community. There may be times when an academic requirement conflicts with religious observances and practices. If that happens, students may request reasonable accommodation for religious practices. The instructor will review the situation to provide reasonable accommodation without penalty. You should first discuss the conflict and your requested accommodation with your instructor early in the term. You or your instructor may also seek assistance from the \href{https://deanofstudents.ucsc.edu/}{Dean of Students office}.
+UC Santa Cruz welcomes a diversity of religious beliefs and practices, recognizing the contributions differing experiences and viewpoints can bring to the community. There may be times when an academic requirement conflicts with religious observances and practices. If that happens, students may request reasonable accommodation for religious practices. The instructor will review the situation to provide reasonable accommodation without penalty. You should first discuss the conflict and your requested accommodation with your instructor early in the term. You may also seek assistance from the \href{https://deanofstudents.ucsc.edu/}{Dean of Students office}.
 
 \section{Tutoring and Learning Support}
 At \href{https://lss.ucsc.edu/}{Learning Support Services (LSS)}, undergraduate students build a strong foundation for success and cultivate a sense of belonging in our Community of Learners. LSS partners with faculty and staff to advance educational equity by designing inclusive learning environments in Modified Supplemental Instruction, Small Group Tutoring, and Writing Support. When students fully engage in our programs, they gain transformative experiences that empower them at the university and beyond.
