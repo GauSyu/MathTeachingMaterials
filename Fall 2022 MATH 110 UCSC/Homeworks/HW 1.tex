@@ -229,19 +229,25 @@
 \begin{problem}
 	Let $a_1,\cdots,a_n$ be $n$ integers. 
 	\begin{listinprob}
-		\item (2pts) Mimicking \cref{p2}, give the \emph{defining properties} of the notion of the \emph{greatest common divisor of $a_1,\cdots,a_n$}. Then give an implementation of such a notion in terms of $\GCD(\:\cdot\:,\:\cdot\:)$. 
+		\item (2pts) Mimicking \cref{p2}, give the \emph{defining properties} of the notion of the \emph{greatest common divisor of $a_1,\cdots,a_n$}. (In other words, give a reasonable \emph{definition} of this notion involving two properties mimicking \ref{2.a.i} and \ref{2.a.ii}) \\
+		Then give an implementation of such a notion in terms of $\GCD(\:\cdot\:,\:\cdot\:)$. (In other words, show that there is a number which is made of the two variable version $\GCD(\:\cdot\:,\:\cdot\:)$ and satisfies the definition. Recall that \cref{2.a} says that $\GCD(a,\GCD(b, c))$ gives an implementation of $\GCD(a, b, c)$.)
 		
-		We will use the notation $\GCD(a_1,\cdots,a_n)$ or $\GCD\limits_{1\le i\le n}a_i$ to denote this notion.
+		\begin{remark}
+			We will use the notation $\GCD(a_1,\cdots,a_n)$ or $\GCD\limits_{1\le i\le n}a_i$ to denote this notion.
+		\end{remark}
+
 		\item (2pts) Give the \emph{defining properties} of the notion of the \emph{least common multiple of $a_1,\cdots,a_n$}. Then give an implementation of such a notion in terms of $\LCM(\:\cdot\:,\:\cdot\:)$. 
 		
-		We will use the notation $\LCM(a_1,\cdots,a_n)$ or $\LCM\limits_{1\le i\le n}a_i$ to denote this notion.
+		\begin{remark}
+			We will use the notation $\LCM(a_1,\cdots,a_n)$ or $\LCM\limits_{1\le i\le n}a_i$ to denote this notion.
+		\end{remark}
 
 		\item (6pts) Mimicking the proof of the attached proposition, show that: 
 		\begin{quote}
 			For any matrix $(a_{ij})_{1\le i\le n, 1\le j\le m}$ of integers, we have 
 			\[
-				\GCD_{1\le i\le n}\LCM_{1\le j\le m} a_{ij} \mid 
-				\LCM_{1\le j\le m}\GCD_{1\le i\le n} a_{ij}.
+				\LCM_{1\le i\le n}\GCD_{1\le j\le m} a_{ij} \mid 
+				\GCD_{1\le j\le m}\LCM_{1\le i\le n} a_{ij}.
 			\]
 		\end{quote}
 		\begin{hint}
