@@ -1,0 +1,343 @@
+%LaTeX Template 
+%%	by	Xu Gao (gausyu@gmail.com)
+%%LPPL: http://www.latex-project.org/lppl.txt
+%------------------------
+%The following is the Preamble
+%------------------------
+\documentclass[11pt]{article}
+%This is the document class. 
+%%	Most common: article, beamer, book, etc.
+%%	11pt means the default font size is 11pt. One can also use 10pt, 11pt, or 12pt.
+%%	See https://en.wikibooks.org/wiki/LaTeX/Document_Structure#Document_classes for explaination.
+%------------------------
+%Packages
+%------------------------
+\usepackage[a4paper,total={6in, 9in}]{geometry} 
+%This aims to customize page layout
+\usepackage[T1]{fontenc}
+%Using T1 font
+\usepackage{mathtools}
+%The main MATH package (for whom may wonder, mathtools load amsmath automatically, so no need \usepackage{amsmath})
+\usepackage{amsthm}
+%This defines the theorem enviroments
+\usepackage{amssymb}
+%Math symbols
+\usepackage{bm}
+%Bold math fonts, provide \bm{} command
+\usepackage[scr=rsfs,cal=euler]{mathalpha}
+%Math fonts 
+%%The package provides means of loading maths alphabets (such as are normally addressed via macros \mathcal, \mathbb, \mathfrak and \mathscr)
+%%How to use? "scr=" set what font \mathscr use, "cal=" set what font \mathcal use, "bb=" set what font \mathbb use, and "frak=" set what font \mathfrak use.
+\usepackage{tikz}
+%Drawing
+\usepackage{graphicx}
+%Support for graphics
+\usepackage{hyperref}
+\usepackage[nameinlink]{cleveref}
+%Hyper links
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	urlcolor=magenta
+}
+%Color links
+\usepackage{etoolbox}
+%Programming
+\usepackage{enumerate}
+%Enable enumerate modification
+%------------------------
+%Theorem-like Enviroments
+%------------------------
+\theoremstyle{plain}
+%This is the theorem style, plain means blod title and italic body
+\newtheorem{theorem}{Theorem}
+%This is how you define a theorem-like enviroment.
+\newtheorem{lemma}[equation]{Lemma}
+%The option [equation] means the lemmas are numbered following the same system of equation.
+\theoremstyle{definition}
+%This is the theorem style, definition means blod title and normal body
+\newtheorem{example}[equation]{Example}
+%The option [equation] means the examples are numbered following the same system of equation.
+\newtheorem{problem}{Problem}
+%This is the enviroment used as problems in HWs.
+\theoremstyle{remark}
+%This is the theorem style, remark means italic title and normal body
+\newtheorem*{remark}{Remark}
+%Remark enviroment
+\numberwithin{equation}{problem}
+%Let equations be numbered with in each problems.
+\newenvironment{solution}{\begin{proof}[\textbf{Solution}]}{\end{proof}}
+%This defines the enviroment for you to write solutions.
+%------------------------
+%DocumentCommands
+%------------------------
+%Notations for number sets
+\NewDocumentCommand \N {} { \mathbb{N} }%Natural numbers
+\NewDocumentCommand \Z {} { \mathbb{Z} }%Integers
+\NewDocumentCommand \Q {} { \mathbb{Q} }%Rational Numbers
+\NewDocumentCommand \R {} { \mathbb{R} }%Real Numbers
+\NewDocumentCommand \C {} { \mathbb{C} }%Complex Numbers
+\NewDocumentCommand \F {} { \mathbb{F} }%Field
+%Notations for maps
+\DeclareMathOperator{\id}{id} % identity
+\DeclareMathOperator{\pr}{pr} % projection
+\DeclareMathOperator{\pt}{pt} % point
+\DeclareMathOperator{\res}{res} % restriction
+%PairedDelimiters
+\DeclarePairedDelimiterX\abs[1]\lvert\rvert
+  { \ifblank{#1}{\:\cdot\:}{#1} }
+%abstract value function
+\DeclarePairedDelimiterX\norm[1]\lVert\rVert
+  { \ifblank{#1}{\:\cdot\:}{#1} }
+%the norm function
+\DeclarePairedDelimiterX\ceil[1]\lceil\rceil
+  { \ifblank{#1}{\:\cdot\:}{#1} }
+%ceil function
+\DeclarePairedDelimiterX\floor[1]\lfloor\rfloor
+  { \ifblank{#1}{\:\cdot\:}{#1} }
+%floor function
+\DeclarePairedDelimiterX\pairing[2]\langle\rangle
+  { \ifblank{#1}{\:\cdot\:}{#1}, \ifblank{#2}{\:\cdot\:}{#2} }
+\DeclarePairedDelimiterX\inner[2]\lparen\rparen
+  { \ifblank{#1}{\:\cdot\:}{#1}, \ifblank{#2}{\:\cdot\:}{#2} }
+%Inner product
+\providecommand\given{}
+\newcommand\SetSymbol[1][]
+  { \nonscript\:#1\vert\allowbreak\nonscript\:\mathopen{} }
+\DeclarePairedDelimiterX\Set[1]\{\}
+  { \renewcommand\given{\SetSymbol[\delimsize]}#1 }
+%a set
+%
+%Miscellaneous
+\NewDocumentCommand \vect { m } { \mathbf{#1} }
+%Vector
+%------------------------
+
+\allowdisplaybreaks
+%Allow a long equation to display in more than one page.
+
+%The following change the default layout of title
+\makeatletter
+\def\@maketitle{%
+	\newpage
+	\null
+	\vskip 2em%
+	\begin{center}%
+		\let \footnote \thanks
+		\sffamily 
+		{\LARGE \@title \par}%
+		\vskip 1.5em%
+		{\large
+		\lineskip .5em%
+		\begin{tabular}[t]{c}%
+		\@author \\[1em]
+		\@subtitle
+		\end{tabular}\par}%
+		\vskip 1em%
+		{\large \@date}%
+	\end{center}%
+	\par
+	\vskip 1.5em%
+}	
+\global\let\@subtitle\@empty
+\DeclareRobustCommand*{\subtitle}[1]{\gdef\@subtitle{#1}}
+\makeatother
+%Leave this change alone if you don't know what it means
+
+%------------------------
+%Information of the file
+%------------------------
+\title{A {\LaTeX} template}
+%The title of the file
+\author{Xu Gao}
+%The author
+\subtitle{MATH 110~|~Introduction to Number Theory~|~Winter 2023}
+%The subtitle
+% \date{} 
+%The date, if commented, the value will be \today
+ 
+%------------------------
+%Document starts here
+%------------------------
+\begin{document}
+\maketitle
+
+\section{Basic use}
+Just type in words. The {\LaTeX} will handle the typesetting. 
+The words will use the default font. 
+The command \verb|\emph{text}| will emphasize the word \emph{text}. 
+In usual context, it behaves as \verb|\textit|, but see how does it behave in an italic context: \textit{this is in italic, while a \emph{text} is emphasized}. 
+To obtain \textbf{bold} words, use \verb|\textbf|. 
+
+Skipping one or more lines will start a new paragraph with indentation. 
+If you do not want the indentation, put \verb|\noindent| at the beginning of the paragraph. 
+If you start a new line without skip, then you are still in the same paragraph. \\
+The command \verb|\\| will start a new line without leave the current paragraph. 
+
+See \href{https://www.overleaf.com/learn/latex/Articles/How_to_change_paragraph_spacing_in_LaTeX}{This article} for how to change paragraph spacing. Note that how I create a hyperlink to a URL. It has a color since I used \verb|colorlinks=true| in \verb|\hypersetup|.
+
+You can use defined commands such as \verb|\LaTeX| to input some symbols. 
+However, math symbols should be putted in math environments. 
+The basic math environment is the \emph{in-line math mode}: \verb|$...$|. There are also \emph{display math modes}: \verb|\[...\]|, for example:
+\[
+	5+7=12.
+\] 
+
+\section{Math symbols}\label{sec:2}
+There are many predefined some math symbols and I also have defined some. 
+The following is a non-complete list of math symbols which will be used in this course. 
+\begin{itemize}
+	\item Subsets: $A\subset B$, $A\subseteq B$, and $A\subsetneq B$. 
+	\item Union $A\cup B$, intersection $A\cap B$, set minus $A\setminus B$, and quotient set $A/B$. 
+	\item Use \verb|\Set| to create a set: $\Set*{ \text{elements} }$ or $\Set*{ \text{elements} \given \text{conditions} }$. The star \verb|*| in \verb|\Set*| means that the brackets will be scaled automatically to match the size of its context. See the followings:
+	\[
+		\Set*{	(x,y,z)\in\Z^3	\given	x^p+y^p=z^p	},
+		\qquad
+		\Set*{	\frac{a+b\sqrt{5}}{2}	\given	a,b\in\Z	}.
+	\]
+	Note that how \verb|\text| allows we to input text in math mode. Be aware that there is no space between math symbols and the contents of \verb|\text|: see $t\text{h}is$. 
+	\item Fractions: \verb|\tfrac| (in-line fraction), \verb|\frac| (display fraction), and \verb|\cfrac| (continued fraction). 
+	\[
+		\tfrac{1}{a_1+\tfrac{1}{a_2+\cdots}},
+		\frac{1}{a_1+\frac{1}{a_2+\cdots}},
+		\cfrac{1}{a_1+\cfrac{1}{a_2+\cdots}}.
+	\]
+	\item The set of Natural numbers $\N$, the set of integers $\Z$, the set of rational numbers $\Q$, the set of real numbers $\R$, and the set of complex numbers $\C$. 
+	\item The identity map $\id$, the projection map $\pr$, and the restriction map $\res$.
+	\item The abstract value $\abs{}$, the norm $\norm{}$, the ceil $\ceil{}$, and the floor $\floor{}$. They have star-variant and different size variants. See the followings: 
+	\[
+		\abs{\frac{a}{b}},
+		\abs*{\frac{a}{b}},
+		\abs[\big]{\frac{a}{b}},
+		\abs[\Big]{\frac{a}{b}},
+		\abs[\bigg]{\frac{a}{b}},
+		\abs[\Bigg]{\frac{a}{b}},
+	\]
+	\item Sum \verb|\sum| and product \verb|\prod|. $\sum_{i=1}^{n}a_n$, $\prod_{i=1}^{n}a_n$, 
+	\[
+		\sum_{i=1}^{n}a_n,\qquad
+		\prod_{i=1}^{n}a_n
+	\] 
+	Compare the in-line ones and the display ones. \\
+	Aside: \verb|\quad| and \verb|\qquad| display some spaces, which is useful since the math mode ignores the spaces. 
+	\item Inner product $\inner{a}{b}$.
+	\item Vectors $\vect{u}$, $\vect{v}$, $\vect{x}$.
+	\item Math fonts: \verb|\mathcal| $\mathcal{A}$, \verb|\mathscr| $\mathscr{A}$, \verb|\mathfrak| $\mathfrak{A}$, \verb|\mathbb| $\mathbb{A}$, and \verb|\mathbf| $\mathbf{A}$.
+\end{itemize}
+
+\section{Equations}\label{sec:3}
+There are many equation environments for different purposes.
+\begin{enumerate}
+	\item The \verb|equation| provides an equation with numbers. 
+	\begin{equation}\label{Alabel}
+		A+B=C.
+	\end{equation}
+	Here I \verb|\label| this equation, so we can refer to it using \verb|\cref|. 
+	See: \cref{Alabel}.
+	\item The star-variant \verb|equation*| is the same as \verb|\[...\]|.
+	\item One can use \verb|split| in side an equation to input aligned multiline equations. 
+	\begin{equation}
+		\begin{split}
+			A &= \frac{\pi r^2}{2} \\
+			&= \tfrac{1}{2}\pi r^2.
+		\end{split}
+	\end{equation}
+	You can put more than ones in the same \verb|equation|:
+	\begin{equation}
+		\begin{split}
+			A &= \frac{\pi r^2}{2} \\
+			&= \tfrac{1}{2}\pi r^2.
+		\end{split}
+		\qquad
+		\text{and}
+		\qquad
+		\begin{split}
+			V &= \frac{4\pi r^3}{3} \\
+			&= \tfrac{4}{3}\pi r^3.
+		\end{split}
+	\end{equation}
+	\item The \verb|align| environment: multi equations with alignments.
+	\begin{align}
+		\framebox[1cm][c]{} &= \framebox[4cm][c]{} \\
+		\framebox[2cm][c]{} &= \framebox[3.5cm][c]{}
+	\end{align}
+	It also has a star-variant which has no numbers.
+	\item There is a \verb|\MoveEqLeft| command move the equation in this line slightly left (can be specified with \verb|[number]|). 
+	\begin{align*}
+		\MoveEqLeft \framebox[10cm][c]{Long first line}\\
+		& = \framebox[6cm][c]{2nd line}\\
+		& \vdotswithin{=}\\
+		& = \framebox[6cm][c]{last line}
+	\end{align*}
+	(see the code for more details such as the use of \verb|\vdotswithin{=}|)
+	\item There is also many \verb|cases| environments:
+	\[
+		f(x) =
+		\begin{cases}
+			\sum_{i=1}^{n}a_i(x) &= \text{condition 1}, \\
+			\frac{1}{x} &= \text{condition 2}.
+		\end{cases}\qquad
+		f(x) =
+		\begin{cases*}
+			\sum_{i=1}^{n}a_i(x) &= condition 1, \\
+			\frac{1}{x} &= condition 2.
+		\end{cases*}
+	\]
+	The \verb|cases| and \verb|cases*| provide in-line formulas, while the following \verb|dcases| and \verb|dcases*| provide display mode:
+	\[
+		f(x) =
+		\begin{dcases}
+			\sum_{i=1}^{n}a_i(x) &= \text{condition 1}, \\
+			\frac{1}{x} &= \text{condition 2}.
+		\end{dcases}\qquad
+		f(x) =
+		\begin{dcases*}
+			\sum_{i=1}^{n}a_i(x) &= condition 1, \\
+			\frac{1}{x} &= condition 2.
+		\end{dcases*}
+	\]
+\end{enumerate}
+
+\section{Lists}
+There are three lists: \verb|itemize|, \verb|enumerate|, and \verb|description|
+\begin{description}
+	\item[itemize] the list in \cref{sec:2} is such a one;
+	\item[enumerate] the list in \cref{sec:3} is such a one;
+	\item[description] this list is such a one.
+	\item[Tag] indeed, one can change any the tag of any item in any kind of list as what I do in this list.
+\end{description}
+One can also change the numbering of a \verb|enumerate| list as follows:
+\begin{enumerate}[(a).]
+	\item abaaba
+	\item balbla
+\end{enumerate}
+
+\section{Environments}
+There are many theorem-like environments. 
+We will mainly use \verb|problem| and \verb|solution|. 
+Here is an example
+\begin{problem}\label{p:1}
+	This is a problem. 
+\end{problem}
+\begin{solution}
+	This should be your solution.
+
+	For your convenience, I have already let equations and lemmas be numbered within problems. See this 
+	\begin{equation}
+		\framebox{This is an equation}
+	\end{equation} 
+	and this 
+	\begin{lemma}
+		A lemma used to solve \Cref{p:1}.
+	\end{lemma}
+
+	When the \verb|solution| environment ends, there will be a QED mark:
+\end{solution}
+
+\section{Compile}
+You can use pdf\LaTeX{} as the compiler, which is also the default one for many online editors. Note that to obtain correct cross-references, you may need to compile the source twice.
+
+\vskip 3em
+\textsf{\Large\color{teal} READ the .tex file to see how this document is made and start your {\LaTeX} journey by playing with this one.}\\
+You will learn more (on both math symbols and typesetting) as the course proceeding.
+\end{document}
