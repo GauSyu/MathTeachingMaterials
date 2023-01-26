@@ -1,0 +1,380 @@
+%LaTeX Template 
+%%	by	Xu Gao (gausyu@gmail.com)
+%%LPPL: http://www.latex-project.org/lppl.txt
+%------------------------
+%The following is the Preamble
+%------------------------
+\documentclass[11pt]{article}
+%This is the document class. 
+%%	Most common: article, beamer, book, etc.
+%%	11pt means the default font size is 11pt. One can also use 10pt, 11pt, or 12pt.
+%%	See https://en.wikibooks.org/wiki/LaTeX/Document_Structure#Document_classes for explaination.
+%------------------------
+%Packages
+%------------------------
+\usepackage[a4paper,total={6in, 9in}]{geometry} 
+%This aims to customize page layout
+\usepackage[T1]{fontenc}
+%Using T1 font
+\usepackage{mathtools}
+%The main MATH package (for whom may wonder, mathtools load amsmath automatically, so no need \usepackage{amsmath})
+\usepackage{amsthm}
+%This defines the theorem enviroments
+\usepackage{amssymb}
+%Math symbols
+\usepackage{bm}
+%Bold math fonts, provide \bm{} command
+\usepackage[scr=rsfs,cal=euler]{mathalpha}
+%Math fonts 
+%%The package provides means of loading maths alphabets (such as are normally addressed via macros \mathcal, \mathbb, \mathfrak and \mathscr)
+%%How to use? "scr=" set what font \mathscr use, "cal=" set what font \mathcal use, "bb=" set what font \mathbb use, and "frak=" set what font \mathfrak use.
+\usepackage{tikz}
+%Drawing
+\usepackage{graphicx}
+%Support for graphics
+\usepackage{hyperref}
+\usepackage[nameinlink]{cleveref}
+%Hyper links
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	urlcolor=magenta,
+	citecolor=blue
+}
+%Color links
+\usepackage{etoolbox}
+%Programming
+\usepackage[shortlabels]{enumitem}
+%Enable enumerate modification
+\usepackage{tcolorbox}
+%provides an environment for coloured and framed text boxes with a heading line.
+\tcbset{colback=white}
+%------------------------
+%Theorem-like Enviroments
+%------------------------
+\theoremstyle{plain}
+%This is the theorem style, plain means blod title and italic body
+\newtheorem{theorem}{Theorem}
+%This is how you define a theorem-like enviroment.
+\newtheorem{lemma}[equation]{Lemma}
+\newtheorem{proposition}[equation]{Proposition}
+%The option [equation] means the lemmas are numbered following the same system of equation.
+\newtheorem*{propstar}{Proposition}
+%Star version defines unnumbered enviroments
+\theoremstyle{definition}
+%This is the theorem style, definition means blod title and normal body
+\newtheorem{example}[equation]{Example}
+%The option [equation] means the examples are numbered following the same system of equation.
+\newtheorem{problem}{Problem}
+\crefname{problem}{problem}{problems}
+\Crefname{problem}{Problem}{Problems}
+%This is the enviroment used as problems in HWs.
+\theoremstyle{remark}
+%This is the theorem style, remark means italic title and normal body
+\newtheorem*{remark}{Remark}
+\newtheorem*{hint}{Hint}
+\newtheorem*{optional}{Optional}
+%Remark enviroment
+\numberwithin{equation}{problem}
+%Let equations be numbered with in each problems.
+\NewDocumentEnvironment{solution} {o+b} 
+	{\begin{proof}[\IfNoValueTF{#1}{\textbf{Solution}}{\textbf{Solution} (#1)}]#2\end{proof}}{}
+%This defines the enviroment for you to write solutions.
+%------------------------
+\newlist{listinprob}{enumerate}{1}
+\setlist[listinprob]{label=(\alph{listinprobi}),
+                  ref=\theproblem.(\alph{listinprobi}),
+                  noitemsep}
+\crefname{listinprobi}{problem}{problems}
+\Crefname{listinprobi}{Problem}{Problems}
+%This defines a new list type used in the enviroment problem.
+%------------------------
+%DocumentCommands
+%------------------------
+%Notations for number sets
+\NewDocumentCommand \N {} { \mathbb{N} }%Natural numbers
+\NewDocumentCommand \Z {} { \mathbb{Z} }%Integers
+\NewDocumentCommand \Q {} { \mathbb{Q} }%Rational Numbers
+\NewDocumentCommand \R {} { \mathbb{R} }%Real Numbers
+\NewDocumentCommand \C {} { \mathbb{C} }%Complex Numbers
+\NewDocumentCommand \F {} { \mathbb{F} }%Field
+%Notations for maps
+\DeclareMathOperator{\id}{id} % identity
+\DeclareMathOperator{\pr}{pr} % projection
+\DeclareMathOperator{\pt}{pt} % point
+\DeclareMathOperator{\res}{res} % restriction
+%PairedDelimiters
+\DeclarePairedDelimiterX\abs[1]\lvert\rvert
+  { \ifblank{#1}{\:\cdot\:}{#1} }
+%abstract value function
+\DeclarePairedDelimiterX\norm[1]\lVert\rVert
+  { \ifblank{#1}{\:\cdot\:}{#1} }
+%the norm function
+\DeclarePairedDelimiterX\ceil[1]\lceil\rceil
+  { \ifblank{#1}{\:\cdot\:}{#1} }
+%ceil function
+\DeclarePairedDelimiterX\floor[1]\lfloor\rfloor
+  { \ifblank{#1}{\:\cdot\:}{#1} }
+%floor function
+\DeclarePairedDelimiterX\pairing[2]\langle\rangle
+  { \ifblank{#1}{\:\cdot\:}{#1}, \ifblank{#2}{\:\cdot\:}{#2} }
+\DeclarePairedDelimiterX\inner[2]\lparen\rparen
+  { \ifblank{#1}{\:\cdot\:}{#1}, \ifblank{#2}{\:\cdot\:}{#2} }
+%Inner product
+\providecommand\given{}
+\newcommand\SetSymbol[1][]
+  { \nonscript\:#1\vert\allowbreak\nonscript\:\mathopen{} }
+\DeclarePairedDelimiterX\Set[1]\{\}
+  { \renewcommand\given{\SetSymbol[\delimsize]}#1 }
+%a set
+%
+%Miscellaneous
+\NewDocumentCommand \vect { m } { \mathbf{#1} }
+%Vector
+\RenewDocumentCommand \le {} { \leqslant }
+\RenewDocumentCommand \ge {} { \geqslant }
+%Change the inequality symbols
+\NewDocumentCommand \tforall {} {\quad\text{for all}\quad}
+%------------------------
+% Additional math symbols, used for the Math 110 course
+% \DeclareMathOperator*\GCD{GCD}
+\DeclareMathOperator*\lcm{lcm}
+%------------------------
+\allowdisplaybreaks
+%Allow a long equation to display in more than one page.
+
+%The following change the default layout of title
+\makeatletter
+\def\@maketitle{%
+	\newpage
+	\null
+	\vskip 2em%
+	\begin{center}%
+		\let \footnote \thanks
+		\sffamily 
+		{\LARGE \@title \par}%
+		\vskip 1.5em%
+		{\large \@subtitle \par}%
+		\vskip 1.5em%
+		{\large Student name: \@author \par}%
+		\ifdefempty{\@acknowledge}{}%
+		{\large With help of: \@acknowledge \par}%
+		\vskip 1em%
+		{\large \@date}%
+	\end{center}%
+	\par
+	\vskip 1.5em%
+}	
+\global\let\@subtitle\@empty
+\DeclareRobustCommand*{\subtitle}[1]{\gdef\@subtitle{#1}}
+\global\let\@acknowledge\@empty
+\DeclareRobustCommand*{\acknowledge}[1]{\gdef\@acknowledge{#1}}
+\makeatother
+%Leave this change alone if you don't know what it means
+
+%------------------------
+%Information of the file
+%------------------------
+\title{Homework 1 (due Jan. 22)}
+%The title of the file
+\author{[Your Full Name Here]}
+%Input your full name here.
+% \acknowledge{[Your collaborators]}
+%Input your collaborators, if none, comment it.
+\subtitle{MATH 110~|~Introduction to Number Theory~|~Winter 2023}
+%The subtitle
+\date{\today} 
+%The date, if commented, the value will be \today
+ 
+%------------------------
+%Document starts here
+%------------------------
+\begin{document}
+\maketitle
+
+\begin{quotation}
+	Whenever you use a result or claim a statement, provide a \textbf{justification} or a \textbf{proof}, unless it has been covered in the class. In the later case, provide a \textbf{citation} (such as ``by the \emph{2-out-of-3 principle}'', ``by Coro. 0.31 in the textbook'', or ``by \cite[Coro. 0.31]{texbook}'').
+
+	You are encouraged to \emph{discuss} the problems with your peers. However, you must write the homework \textbf{by yourself} using your words and \textbf{acknowledge your collaborators}.
+	
+	\Large Please read the \textbf{HW 1.pdf} first. 
+\end{quotation}
+
+
+\begin{problem}\label{p1}
+	This problem is a $3$-varibales analogy of the material covered in lectures.
+	\begin{listinprob}
+		\item\label{1.a} (5pts) Prove that there exists no integer solution $(x, y, z)$ to the equation 
+		\[
+			18x - 27y + 39z = 4.
+		\]
+
+%----------------------------------------
+\begin{solution} %Do not delete
+WRITE YOUR SOLUTION HERE
+\end{solution}\clearpage %Do not delete
+%----------------------------------------
+
+		\item\label{1.b} (5pts) Find \textbf{an} integer solution $(x, y, z)$ to the equation $18x - 27y + 39z = 6$. 
+
+%----------------------------------------
+\begin{solution} %Do not delete
+WRITE YOUR SOLUTION HERE
+\end{solution}\clearpage %Do not delete
+%----------------------------------------
+
+		\item[($\ast$c).]\label{1.c} (optional, with extra credit up to 5pts) Find \textbf{all} the integer solutions $(x, y, z)$ to the equation $18x - 27y + 39z = 6$. 
+		Your answer should give explicit formulae for $x, y, z$ in terms of two free independent integer parameters $m$ and $n$.
+	\end{listinprob}
+	\begin{remark}
+		Can you work out a general algorithm?
+	\end{remark}
+\end{problem}
+%----------------------------------------
+\begin{solution} %Do not delete
+WRITE YOUR SOLUTION HERE
+\end{solution}\clearpage %Do not delete
+%----------------------------------------
+
+
+\begin{problem}\label{p2}
+	Let $a, b, c$ be three integers, and let $g=\gcd(a,\gcd(b,c))$. 
+	\begin{listinprob}
+		\item\label{2.a} (8pts) Prove that $g$ satisfies the following properties: 
+		\begin{enumerate}[(i)]
+			\item\label{2.a.i} $g$ is a common divisor of $a$, $b$ and $c$, in other words, we have $g\mid a$, $g\mid b$ and $g\mid c$. 
+			\item\label{2.a.ii} If $d$ is any common divisor of $a$, $b$ and $c$, then $d\mid g$.
+		\end{enumerate}
+
+%----------------------------------------
+\begin{solution} %Do not delete
+WRITE YOUR SOLUTION HERE
+\end{solution}\clearpage %Do not delete
+%----------------------------------------
+
+		\item\label{2.b} (2pts) 
+		Prove that $g$ is the unique natural number satisfying both \ref{2.a.i} and \ref{2.a.ii}.
+	\end{listinprob}
+	\begin{optional}[with extra credit up to 2pts]
+		During your proof, try to only use the following facts: 1, the \emph{definition} of $\gcd(\:\cdot\:,\:\cdot\:)$, 2, the \emph{transitivity} $\cdot\mid\cdot$, and 3, the \emph{reflexivity} of $\cdot\mid\cdot$. 
+	\end{optional}
+	\begin{hint}
+		Compare this problem with the fact that $\max\Set{a,b,c} = \max\Set{a,\max\Set{b,c}}$.
+	\end{hint}
+
+	The properties \ref{2.a.i} and \ref{2.a.ii} together are called the \emph{defining property} of the notion of the \emph{greatest common divisor of $a$, $b$ and $c$}. 
+	
+	We will use $\gcd(a, b, c)$ to denote the greatest common divisor of $a$, $b$ and $c$. Then \cref{2.a} says that $\gcd(a,\gcd(b, c))$ gives an \emph{implementation} of $\gcd(a, b, c)$. Namely, it gives a way to compute the $\gcd(a, b, c)$ from the given integers $a,b,c$: first compute $\gcd(b, c)$, and then plug it in $\gcd(a,\gcd(b, c))$, the final result would be the answer.
+\end{problem}
+
+%----------------------------------------
+\begin{solution} %Do not delete
+WRITE YOUR SOLUTION HERE
+\end{solution}\clearpage %Do not delete
+%----------------------------------------
+
+\begin{problem}[5 pts]\label{p3}
+	Treat $\gcd(\:\cdot\:,\:\cdot\:)$ as a binary operation on $\Z$. Show that it is \emph{associative}:
+	\[
+		\forall a,b,c\in\Z \colon \gcd(a,\gcd(b,c)) = \gcd(\gcd(a,b),c).
+	\]
+\end{problem}
+\begin{remark}
+	By symmetry, the same results as in \cref{p2,p3} holds for $\lcm(\:\cdot\:,\:\cdot\:)$.
+\end{remark}
+
+%----------------------------------------
+\begin{solution} %Do not delete
+WRITE YOUR SOLUTION HERE
+\end{solution}\clearpage %Do not delete
+%----------------------------------------
+
+\begin{problem}
+	Let $a_1,\cdots,a_n$ be $n$ integers. 
+	\begin{listinprob}
+		\item (2pts) Mimicking \cref{p2}, give the \emph{defining properties} of the notion of the \emph{greatest common divisor of $a_1,\cdots,a_n$}. (In other words, give a reasonable \emph{definition} of this notion involving two properties mimicking \ref{2.a.i} and \ref{2.a.ii}) \\
+		Then give an \emph{implementation} of such a notion in terms of $\gcd(\:\cdot\:,\:\cdot\:)$. (In other words, give a way to compute the greatest common divisor of $a_1,\cdots,a_n$ using only the two variable version $\gcd(\:\cdot\:,\:\cdot\:)$.) 
+		% \begin{hint}
+		% 	Recall that \cref{2.a} says that $\gcd(a,\gcd(b, c))$ gives an implementation of $\gcd(a, b, c)$.
+		% \end{hint} 
+		
+		\begin{remark}
+			We will use the notation $\gcd(a_1,\cdots,a_n)$ or $\gcd\limits_{1\le i\le n}a_i$ to denote this notion.
+		\end{remark}
+
+%----------------------------------------
+\begin{solution} %Do not delete
+WRITE YOUR SOLUTION HERE
+\end{solution}\clearpage %Do not delete
+%----------------------------------------
+
+		\item (2pts) Give the \emph{defining properties} of the notion of the \emph{least common multiple of $a_1,\cdots,a_n$}. Then give an \emph{implementation} of such a notion in terms of $\lcm(\:\cdot\:,\:\cdot\:)$. 
+		
+		\begin{remark}
+			We will use the notation $\lcm(a_1,\cdots,a_n)$ or $\lcm\limits_{1\le i\le n}a_i$ to denote this notion.
+		\end{remark}
+
+%----------------------------------------
+\begin{solution} %Do not delete
+WRITE YOUR SOLUTION HERE
+\end{solution}\clearpage %Do not delete
+%----------------------------------------
+
+		\item (6pts) Mimicking the proof of the attached proposition, show that: 
+		\begin{quote}
+			For any matrix $(a_{ij})_{1\le i\le n, 1\le j\le m}$ of integers, we have 
+			\[
+				\lcm_{1\le i\le n}\gcd_{1\le j\le m} a_{ij} \mid 
+				\gcd_{1\le j\le m}\lcm_{1\le i\le n} a_{ij}.
+			\]
+		\end{quote}
+		\begin{hint}
+			What facts are used in the proof?
+		\end{hint}
+	\end{listinprob}
+	\begin{tcolorbox}
+		\begin{propstar}\label{prop}
+			Let $(x_{ij})_{1\le i\le n, 1\le j\le m}$ be a matrix of real numbers, then we have 
+			\[
+				\max_{1\le i\le n}\min_{1\le j\le m} x_{ij} \le 
+				\min_{1\le j\le m}\max_{1\le i\le n} x_{ij}.
+			\]
+		\end{propstar}
+		\begin{proof}
+			Define $f(i)$ ($1\le i\le n$) to be $\min\limits_{1\le j\le m}x_{ij}$. Then we have 
+			\[
+				f(i) \le x_{ij} \tforall 1\le i\le n, 1\le j\le m.
+			\]
+			Therefore, we have 
+			\[
+				\max_{1\le i\le n}f(i) \le \max_{1\le i\le n} x_{ij} 
+				\tforall 1\le j\le m.
+			\]
+			In particular, we have 
+			\[
+				\max_{1\le i\le n}f(i) \le \min_{1\le j\le m}\max_{1\le i\le n} x_{ij}
+			\]
+			as desired.
+		\end{proof}
+	\end{tcolorbox}
+\end{problem}
+
+%----------------------------------------
+\begin{solution} %Do not delete
+WRITE YOUR SOLUTION HERE
+\end{solution}\clearpage %Do not delete
+%----------------------------------------
+
+
+
+%------------------------
+\begin{thebibliography}{9}  %Do not delete
+%List your references here
+\bibitem[TEXT]{texbook}
+\emph{An Illustrated Theory of Numbers}, Martin H. Weissman.
+
+\bibitem[label]{citekey}
+[Book(s): \emph{Title}, Author ] or [Online: \href{http://example.com/}{Link}]
+\end{thebibliography}  %Do not delete
+%------------------------
+\end{document}

@@ -1,0 +1,401 @@
+%LaTeX Template 
+%%	by	Xu Gao (gausyu@gmail.com)
+%%LPPL: http://www.latex-project.org/lppl.txt
+%------------------------
+%The following is the Preamble
+%------------------------
+	\documentclass[11pt]{article}
+	%This is the document class. 
+	%%	Most common: article, beamer, book, etc.
+	%%	11pt means the default font size is 11pt. One can also use 10pt, 11pt, or 12pt.
+	%%	See https://en.wikibooks.org/wiki/LaTeX/Document_Structure#Document_classes for explaination.
+	%------------------------
+	%Packages
+	%------------------------
+	\usepackage[a4paper,total={6in, 9in}]{geometry} 
+	%This aims to customize page layout
+	\usepackage[T1]{fontenc}
+	%Using T1 font
+	\usepackage[leqno]{mathtools}
+	%The main MATH package (for whom may wonder, mathtools load amsmath automatically, so no need \usepackage{amsmath})
+	\usepackage{amsthm}
+	%This defines the theorem enviroments
+	\usepackage{amssymb}
+	%Math symbols
+	\usepackage{bm}
+	%Bold math fonts, provide \bm{} command
+	\usepackage[scr=rsfs,cal=euler]{mathalpha}
+	%Math fonts 
+	%%The package provides means of loading maths alphabets (such as are normally addressed via macros \mathcal, \mathbb, \mathfrak and \mathscr)
+	%%How to use? "scr=" set what font \mathscr use, "cal=" set what font \mathcal use, "bb=" set what font \mathbb use, and "frak=" set what font \mathfrak use.
+	\usepackage{tikz}
+	%Drawing
+	\usepackage{graphicx}
+	%Support for graphics
+	\usepackage{hyperref}
+	\usepackage[nameinlink]{cleveref}
+	%Hyper links
+	\hypersetup{
+		colorlinks=true,
+		linkcolor=blue,
+		urlcolor=magenta
+	}
+	%Color links
+	\usepackage{etoolbox}
+	%Programming
+	\usepackage[shortlabels]{enumitem}
+	%Enable enumerate modification
+	\usepackage{tcolorbox}
+	%provides an environment for coloured and framed text boxes with a heading line.
+	\tcbset{colback=white}
+	%------------------------
+	%Theorem-like Enviroments
+	%------------------------
+	\crefname{equation}{}{}
+	\theoremstyle{plain}
+	%This is the theorem style, plain means blod title and italic body
+	\newtheorem{theorem}{Theorem}
+	%This is how you define a theorem-like enviroment.
+	\newtheorem{lemma}[equation]{Lemma}
+	\newtheorem{proposition}[equation]{Proposition}
+	%The option [equation] means the lemmas are numbered following the same system of equation.
+	\newtheorem*{propstar}{Proposition}
+	%Star version defines unnumbered enviroments
+	\theoremstyle{definition}
+	%This is the theorem style, definition means blod title and normal body
+	\newtheorem*{defn}{Definition}
+	\newtheorem{example}[equation]{Example}
+	%The option [equation] means the examples are numbered following the same system of equation.
+	\newtheorem{problem}{Problem}
+	%This is the enviroment used as problems in HWs.
+	\theoremstyle{remark}
+	%This is the theorem style, remark means italic title and normal body
+	\newtheorem*{remark}{Remark}
+	\newtheorem*{hint}{Hint}
+	\newtheorem*{optional}{Optional}
+	%Remark enviroment
+	\numberwithin{equation}{problem}
+	%Let equations be numbered with in each problems.
+	\NewDocumentEnvironment{solution} {o+b} 
+	{\begin{proof}[\IfNoValueTF{#1}{\textbf{Solution}}{\textbf{Solution} (#1)}]#2\end{proof}}{}
+	%This defines the enviroment for you to write solutions.
+	%------------------------
+	\newlist{listinprob}{enumerate}{1}
+	\setlist[listinprob]{label=(\alph{listinprobi}),
+										ref=\theproblem.(\alph{listinprobi}),
+										noitemsep}
+	\crefname{listinprobi}{problem}{problems}
+	\Crefname{listinprobi}{Problem}{Problems}
+	%This defines a new list type used in the enviroment problem.
+	%------------------------
+	%DocumentCommands
+	%------------------------
+	%Notations for number sets
+	\NewDocumentCommand \N {} { \mathbb{N} }%Natural numbers
+	\NewDocumentCommand \Z {} { \mathbb{Z} }%Integers
+	\NewDocumentCommand \Q {} { \mathbb{Q} }%Rational Numbers
+	\NewDocumentCommand \R {} { \mathbb{R} }%Real Numbers
+	\NewDocumentCommand \C {} { \mathbb{C} }%Complex Numbers
+	\NewDocumentCommand \F {} { \mathbb{F} }%Field
+	\NewDocumentCommand \scrO {} {	\mathscr{O}	}%Dedekind doamin
+	%Notations for maps
+	\DeclareMathOperator{\id}{id} % identity
+	\DeclareMathOperator{\pr}{pr} % projection
+	\DeclareMathOperator{\pt}{pt} % point
+	\DeclareMathOperator{\res}{res} % restriction
+	%PairedDelimiters
+	\DeclarePairedDelimiterX\abs[1]\lvert\rvert
+		{ \ifblank{#1}{\:\cdot\:}{#1} }
+	%abstract value function
+	\DeclarePairedDelimiterX\norm[1]\lVert\rVert
+		{ \ifblank{#1}{\:\cdot\:}{#1} }
+	%the norm function
+	\DeclarePairedDelimiterX\ceil[1]\lceil\rceil
+		{ \ifblank{#1}{\:\cdot\:}{#1} }
+	%ceil function
+	\DeclarePairedDelimiterX\floor[1]\lfloor\rfloor
+		{ \ifblank{#1}{\:\cdot\:}{#1} }
+	%floor function
+	\DeclarePairedDelimiterX\pairing[2]\langle\rangle
+		{ \ifblank{#1}{\:\cdot\:}{#1}, \ifblank{#2}{\:\cdot\:}{#2} }
+	\DeclarePairedDelimiterX\inner[2]\lparen\rparen
+		{ \ifblank{#1}{\:\cdot\:}{#1}, \ifblank{#2}{\:\cdot\:}{#2} }
+	%Inner product
+	\providecommand\given{}
+	\newcommand\SetSymbol[1][]
+		{ \nonscript\:#1\vert\allowbreak\nonscript\:\mathopen{} }
+	\DeclarePairedDelimiterX\Set[1]\{\}
+		{ \renewcommand\given{\SetSymbol[\delimsize]}#1 }
+	%a set
+	%
+	%Miscellaneous
+	\NewDocumentCommand \vect { m } { \mathbf{#1} }
+	%Vector
+	\RenewDocumentCommand \le {} { \leqslant }
+	\RenewDocumentCommand \ge {} { \geqslant }
+	%Change the inequality symbols
+	\NewDocumentCommand \tforall {} {\quad\text{for all}\quad}
+	%------------------------
+	% Additional math symbols, used for the Math 110 course
+% \DeclareMathOperator*\gcd{GCD}
+\DeclareMathOperator*\lcm{lcm}
+	%------------------------
+	\allowdisplaybreaks
+	%Allow a long equation to display in more than one page.
+
+	%The following change the default layout of title
+	\makeatletter
+	\def\@maketitle{%
+		\newpage
+		\null
+		\vskip 2em%
+		\begin{center}%
+			\let \footnote \thanks
+			\sffamily 
+			{\LARGE \@title \par}%
+			\vskip 1.5em%
+			{\large \@subtitle \par}%
+			\vskip 1.5em%
+			{\large Student name: \@author \par}%
+			\ifdefempty{\@acknowledge}{}%
+			{\large With help of: \@acknowledge \par}%
+			\vskip 1em%
+			{\large \@date}%
+		\end{center}%
+		\par
+		\vskip 1.5em%
+	}	
+	\global\let\@subtitle\@empty
+	\DeclareRobustCommand*{\subtitle}[1]{\gdef\@subtitle{#1}}
+	\global\let\@acknowledge\@empty
+	\DeclareRobustCommand*{\acknowledge}[1]{\gdef\@acknowledge{#1}}
+	\makeatother
+%Leave this change alone if you don't know what it means
+
+
+
+
+
+
+
+
+%%%
+%%%	START WORKS
+%%%
+%------------------------
+%Information of the file
+%------------------------
+\title{Homework 2 (due Jan. 29)}
+%The title of the file
+\author{[Your Full Name Here]}
+%Input your full name here.
+% \acknowledge{[Your collaborators]}
+%Input your collaborators, if none, comment it.
+\subtitle{MATH 110~|~Introduction to Number Theory~|~Winter 2023}
+%The subtitle
+\date{\today} 
+%The date, if commented, the value will be \today
+ 
+%------------------------
+%Document starts here
+%------------------------
+\begin{document}
+\maketitle
+
+\begin{quotation}
+	Whenever you use a result or claim a statement, provide a \textbf{justification} or a \textbf{proof}, unless it has been covered in the class. In the later case, provide a \textbf{citation} (such as ``by the \emph{2-out-of-3 principle}'' or ``by Coro. 0.31 in the textbook'').
+
+	You are encouraged to \emph{discuss} the problems with your peers. However, you must write the homework \textbf{by yourself} using your words and \textbf{acknowledge your collaborators}.
+\end{quotation}
+
+\begin{problem}
+	Let $a$, $b$ and $n$ be positive integers. \texttt{Prove} that 
+	\begin{listinprob}
+		\item (5 pts) $\gcd(a^n,b^n) = \gcd(a,b)^n$ and $\lcm(a^n,b^n) = \lcm(a,b)^n$;
+		
+%----------------------------------------
+\begin{solution} %Do not delete
+WRITE YOUR SOLUTION HERE
+\end{solution}\clearpage %Do not delete
+%----------------------------------------
+
+		\item (5 pts) $\gcd(a\cdot n,b\cdot n) = \gcd(a,b)\cdot n$ and $\lcm(a\cdot n,b\cdot n) = \lcm(a,b)\cdot n$;
+	\end{listinprob}	
+\end{problem}
+%----------------------------------------
+\begin{solution} %Do not delete
+WRITE YOUR SOLUTION HERE
+\end{solution}\clearpage %Do not delete
+%----------------------------------------
+
+
+
+
+
+
+\begin{problem}[10 pts]
+	Write the prime factorization of $N = 13!$ and then count the divisors of $N$ (give the number, you do not need to list all of them in order to count).
+	\begin{remark}
+		Recall that for any positive integer $n$, we denote by $n!$ (read \textbf{$n$ factorial}) the product of all the integers between $1$ and $n$.
+	\end{remark}
+\end{problem}
+
+%----------------------------------------
+\begin{solution} %Do not delete
+WRITE YOUR SOLUTION HERE
+\end{solution}\clearpage %Do not delete
+%----------------------------------------
+
+
+
+
+
+
+\begin{problem}[10 pts]
+	Let $n$ be any positive integer. \texttt{Prove} that there exists a positive integer $k$ (depending on $n$) such that the following list of $n$ consecutive integers:
+	\[
+		k, k + 1, \cdots, k + n - 1
+	\]
+	contains \emph{no} prime number at all.
+	\begin{hint}
+		Use the factorial (but $k=n!$ is NOT the correct answer, start from this and try to see what are missing). You also need the \emph{2-out-of-3} property of division.
+	\end{hint}
+	\begin{remark}
+		From the problem, we can see that the gaps between consecutive prime numbers can be arbitrarily large.
+	\end{remark}
+\end{problem}
+
+%----------------------------------------
+\begin{solution} %Do not delete
+WRITE YOUR SOLUTION HERE
+\end{solution}\clearpage %Do not delete
+%----------------------------------------
+
+
+
+
+
+
+\begin{problem}\label{p4}
+	Consider the collection of complex numbers of the form
+	\[
+		\scrO := \Set*{	a+b\sqrt{-5}	\given	a,b\in\Z	}.
+	\]
+	\begin{listinprob}
+		\item (3 pts) \texttt{Prove} that the set $\scrO$ equipped with the addition and multiplication of complex numbers satisfies the following properties:
+		\begin{enumerate}[(i)]
+			\item $\scrO$ is closed under addition: for any $\alpha,\beta\in\scrO$, we have $\alpha+\beta\in\scrO$.
+			\item $\scrO$ is closed under negation: for any $\alpha\in\scrO$, we have $-\alpha\in\scrO$.
+			\item $\scrO$ is closed under multiplication: for any $\alpha,\beta\in\scrO$, we have $\alpha\beta\in\scrO$.
+		\end{enumerate}
+		\begin{remark}
+			In the terms of Algebra, $\scrO$ is a \emph{subring} of the ring $\C$ of complex numbers.
+		\end{remark}		
+
+%----------------------------------------
+\begin{solution} %Do not delete
+WRITE YOUR SOLUTION HERE
+\end{solution}\clearpage %Do not delete
+%----------------------------------------
+
+
+		\item\label{Norm} (4 pts) Consider the integer-valued function $N$ defined on $\scrO$: 
+		\[
+			N(a+b\sqrt{-5}) := a^2+5b^2.
+		\]
+		\texttt{Prove} that 
+		\[
+			N(\alpha\beta) = N(\alpha)N(\beta)
+		\]
+		for any two elements $\alpha$ and $\beta$ in $\scrO$.
+		\begin{remark}
+			Say that an element $\alpha\in\scrO$ \textbf{divides} another element $\beta\in\scrO$, denoted by $\alpha\mid\beta$ if there is an element $\gamma\in\scrO$ such that $\beta=\alpha\gamma$. Hence, \cref{Norm} shows that 
+			\[
+				\alpha \mid \beta \implies N(\alpha) \mid N(\beta).
+			\]
+		\end{remark}		
+
+%----------------------------------------
+\begin{solution} %Do not delete
+WRITE YOUR SOLUTION HERE
+\end{solution}\clearpage %Do not delete
+%----------------------------------------
+
+
+		\item\label{unit} (2 pts) Say that an element $\varepsilon\in\scrO$ is a \textbf{unit} if $\varepsilon$ divides $1$. 
+		\texttt{Prove} that all the units in $\scrO$ are $1$ and $-1$.
+		\begin{hint}
+			Assume $\varepsilon\in\scrO$ is a unit other than $\pm 1$, then use \cref{Norm}.
+		\end{hint}
+
+%----------------------------------------
+\begin{solution} %Do not delete
+WRITE YOUR SOLUTION HERE
+\end{solution}\clearpage %Do not delete
+%----------------------------------------
+
+
+		\item (8 pts) Say that an element $\alpha\in\scrO$ is a \textbf{prime element} if 
+		\begin{enumerate}[(i)]
+			\item $\alpha$ is nonzero and not a unit;
+			\item whenever $\alpha=\gamma\delta$ with $\gamma, \delta \in \scrO$, we necessarily have one of $\gamma, \delta$ being a unit.
+		\end{enumerate}
+		\texttt{Prove} that the following four elements are prime elements: $2$, $3$, $1+\sqrt{-5}$, and $1-\sqrt{-5}$.
+		\begin{hint}
+			Proceed by way of contradiction, then use \cref{Norm}.
+		\end{hint}
+
+%----------------------------------------
+\begin{solution} %Do not delete
+WRITE YOUR SOLUTION HERE
+\end{solution}\clearpage %Do not delete
+%----------------------------------------
+
+
+		\item (3 pts) Say that two elements $\alpha,\beta\in\scrO$ are \textbf{associated} if both $\alpha\mid\beta$ and $\beta\mid\alpha$. 
+		\texttt{Prove} that none pair of the four elements $2$, $3$, $1+\sqrt{-5}$, and $1-\sqrt{-5}$ are associated. 
+		\begin{hint}
+			Use the definition of \emph{divisibility} and \cref{unit}.
+		\end{hint}
+
+%----------------------------------------
+\begin{solution} %Do not delete
+WRITE YOUR SOLUTION HERE
+\end{solution}\clearpage %Do not delete
+%----------------------------------------
+
+	\end{listinprob}
+	\begin{remark}
+		A \textbf{prime factorization} of a nonzero element $\alpha\in\scrO$ is a representation
+		\[
+			\alpha = \varepsilon p_1\cdots p_n,	
+		\]
+		where $\varepsilon\in\scrO$ is a unit and $p_1,\cdots,p_n\in\scrO$ are prime elements in $\scrO$. 
+		Say that $\alpha$ has a \textbf{unique} prime factorization if whenever there is another prime factorization
+		\[
+			\alpha = \varepsilon' p_1'\cdots p_m', 
+		\]
+		we necessarily have $m=n$ and there is a bijection $\phi\colon\Set{1,\cdots,n}\to\Set{1,\cdots,m}$ such that each $p_i$ ($1\le i\le n$) is \emph{associated} to $p_{\phi(i)}'$.
+
+		Say that the \textbf{unique prime factorization property} holds in $\scrO$ if any nonzero element $\alpha\in\scrO$ has a \emph{unique prime factorization}. 
+
+		Then \cref{p4} shows that the prime factorization property \textbf{fails} in $\scrO$ due to the following counterexample
+		\[
+			6 = 2\cdot 3 = (1+\sqrt{-5})\cdot(1-\sqrt{-5}).
+		\]
+	\end{remark}
+\end{problem}
+
+
+%%%	List your reference here
+%------------------------
+\begin{thebibliography}{9}  %Do not delete
+%List your references here
+\bibitem[TEXT]{texbook}
+\emph{An Illustrated Theory of Numbers}, Martin H. Weissman.
+
+\bibitem[label]{citekey}
+[Book(s): \emph{Title}, Author ] or [Online: \href{http://example.com/}{Link}]
+\end{thebibliography}  %Do not delete
+%------------------------
+\end{document}
