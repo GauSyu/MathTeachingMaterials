@@ -1,0 +1,321 @@
+%LaTeX Template 
+%%	by	Xu Gao (gausyu@gmail.com)
+%%LPPL: http://www.latex-project.org/lppl.txt
+%------------------------
+%The following is the Preamble
+%------------------------
+\documentclass[11pt]{article}
+%This is the document class. 
+%%	Most common: article, beamer, book, etc.
+%%	11pt means the default font size is 11pt. One can also use 10pt, 11pt, or 12pt.
+%%	See https://en.wikibooks.org/wiki/LaTeX/Document_Structure#Document_classes for explaination.
+%------------------------
+%Packages
+%------------------------
+\usepackage[a4paper,total={6in, 9in}]{geometry} 
+%This aims to customize page layout
+\usepackage[T1]{fontenc}
+%Using T1 font
+\usepackage[leqno]{mathtools}
+%The main MATH package (for whom may wonder, mathtools load amsmath automatically, so no need \usepackage{amsmath})
+\usepackage{amsthm}
+%This defines the theorem enviroments
+\usepackage{amssymb}
+%Math symbols
+\usepackage{bm}
+%Bold math fonts, provide \bm{} command
+\usepackage[scr=rsfs,cal=euler]{mathalpha}
+%Math fonts 
+%%The package provides means of loading maths alphabets (such as are normally addressed via macros \mathcal, \mathbb, \mathfrak and \mathscr)
+%%How to use? "scr=" set what font \mathscr use, "cal=" set what font \mathcal use, "bb=" set what font \mathbb use, and "frak=" set what font \mathfrak use.
+\usepackage{tikz}
+\usetikzlibrary{automata}
+\usetikzlibrary{arrows.meta}
+\tikzset{>=latex}
+%Drawing
+\usepackage{graphicx}
+%Support for graphics
+\usepackage{hyperref}
+\usepackage[nameinlink]{cleveref}
+%Hyper links
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	urlcolor=magenta,
+	citecolor=magenta
+}
+%Color links
+\usepackage{etoolbox}
+%Programming
+\usepackage[shortlabels]{enumitem}
+%Enable enumerate modification
+\usepackage{tcolorbox}
+%provides an environment for coloured and framed text boxes with a heading line.
+\tcbset{colback=white}
+%------------------------
+%Theorem-like Enviroments
+%------------------------
+\crefname{equation}{}{}
+\theoremstyle{plain}
+%This is the theorem style, plain means blod title and italic body
+\newtheorem{theorem}{Theorem}
+%This is how you define a theorem-like enviroment.
+\newtheorem{lemma}[equation]{Lemma}
+\newtheorem{proposition}[equation]{Proposition}
+%The option [equation] means the lemmas are numbered following the same system of equation.
+\newtheorem*{propstar}{Proposition}
+%Star version defines unnumbered enviroments
+\theoremstyle{definition}
+%This is the theorem style, definition means blod title and normal body
+\newtheorem*{defn}{Definition}
+\newtheorem{example}[equation]{Example}
+%The option [equation] means the examples are numbered following the same system of equation.
+\newtheorem{problem}{Problem}
+%This is the enviroment used as problems in HWs.
+\theoremstyle{remark}
+%This is the theorem style, remark means italic title and normal body
+\newtheorem*{remark}{Remark}
+\newtheorem*{hint}{Hint}
+\newtheorem*{optional}{Optional}
+%Remark enviroment
+\numberwithin{equation}{problem}
+%Let equations be numbered with in each problems.
+\NewDocumentEnvironment{solution} {o} 
+{\begin{proof}[\IfNoValueTF{#1}{\textbf{Solution}}{\textbf{Solution} (#1)}]}{\end{proof}}
+%This defines the enviroment for you to write solutions.
+%------------------------
+\newlist{listinprob}{enumerate}{1}
+\setlist[listinprob]{label=(\alph{listinprobi}),
+                  ref=\theproblem.(\alph{listinprobi})}
+\crefname{listinprobi}{problem}{problems}
+\Crefname{listinprobi}{Problem}{Problems}
+%This defines a new list type used in the enviroment problem.
+%------------------------
+%DocumentCommands
+%------------------------
+%Notations for number sets
+\NewDocumentCommand \N {} { \mathbb{N} }%Natural numbers
+\NewDocumentCommand \Z {} { \mathbb{Z} }%Integers
+\NewDocumentCommand \Q {} { \mathbb{Q} }%Rational Numbers
+\NewDocumentCommand \R {} { \mathbb{R} }%Real Numbers
+\NewDocumentCommand \C {} { \mathbb{C} }%Complex Numbers
+\NewDocumentCommand \F {} { \mathbb{F} }%Field
+\NewDocumentCommand \scrO {} {	\mathscr{O}	}%Dedekind doamin
+%Notations for maps
+\DeclareMathOperator{\id}{id} % identity
+\DeclareMathOperator{\pr}{pr} % projection
+\DeclareMathOperator{\pt}{pt} % point
+\DeclareMathOperator{\res}{res} % restriction
+%PairedDelimiters
+\DeclarePairedDelimiterX\abs[1]\lvert\rvert
+  { \ifblank{#1}{\:\cdot\:}{#1} }
+%abstract value function
+\DeclarePairedDelimiterX\norm[1]\lVert\rVert
+  { \ifblank{#1}{\:\cdot\:}{#1} }
+%the norm function
+\DeclarePairedDelimiterX\ceil[1]\lceil\rceil
+  { \ifblank{#1}{\:\cdot\:}{#1} }
+%ceil function
+\DeclarePairedDelimiterX\floor[1]\lfloor\rfloor
+  { \ifblank{#1}{\:\cdot\:}{#1} }
+%floor function
+\DeclarePairedDelimiterX\pairing[2]\langle\rangle
+  { \ifblank{#1}{\:\cdot\:}{#1}, \ifblank{#2}{\:\cdot\:}{#2} }
+\DeclarePairedDelimiterX\inner[2]\lparen\rparen
+  { \ifblank{#1}{\:\cdot\:}{#1}, \ifblank{#2}{\:\cdot\:}{#2} }
+%Inner product
+\providecommand\given{}
+\newcommand\SetSymbol[1][]
+  { \nonscript\:#1\vert\allowbreak\nonscript\:\mathopen{} }
+\DeclarePairedDelimiterX\Set[1]\{\}
+  { \renewcommand\given{\SetSymbol[\delimsize]}#1 }
+%a set
+%
+%Miscellaneous
+\NewDocumentCommand \vect { m } { \mathbf{#1} }
+%Vector
+\RenewDocumentCommand \le {} { \leqslant }
+\RenewDocumentCommand \ge {} { \geqslant }
+%Change the inequality symbols
+\NewDocumentCommand \tforall {} {\quad\text{for all}\quad}
+%------------------------
+% Additional math symbols, used for the Math 110 course
+\DeclareMathOperator*\GCD{GCD}
+\DeclareMathOperator*\LCM{LCM}
+\usepackage{derivative}% Support typing calculus notations.
+%------------------------
+\allowdisplaybreaks
+%Allow a long equation to display in more than one page.
+
+%The following change the default layout of title
+\makeatletter
+\def\@maketitle{%
+	\newpage
+	\null
+	\vskip 2em%
+	\begin{center}%
+		\let \footnote \thanks
+		\sffamily 
+		{\LARGE \@title \par}%
+		\vskip 1.5em%
+		{\large \@subtitle \par}%
+		\vskip 1.5em%
+		{\large Student name: \@author \par}%
+		\ifdefempty{\@acknowledge}{}%
+		{\large With help of: \@acknowledge \par}%
+		\vskip 1em%
+		{\large \@date}%
+	\end{center}%
+	\par
+	\vskip 1.5em%
+}	
+\global\let\@subtitle\@empty
+\DeclareRobustCommand*{\subtitle}[1]{\gdef\@subtitle{#1}}
+\global\let\@acknowledge\@empty
+\DeclareRobustCommand*{\acknowledge}[1]{\gdef\@acknowledge{#1}}
+\makeatother
+%Leave this change alone if you don't know what it means
+
+%%%
+%%%	START WORKS
+%%%
+%------------------------
+%Information of the file
+%------------------------
+\title{Homework 5 (due Feb. 26)}
+%The title of the file
+\author{[Your Full Name Here]}
+%Input your full name here.
+% \acknowledge{[Your collaborators]}
+%Input your collaborators, if none, comment it.
+\subtitle{MATH 110~|~Introduction to Number Theory~|~Winter 2023}
+%The subtitle
+\date{\today} 
+%The date, if commented, the value will be \today
+ 
+%------------------------
+%Document starts here
+%------------------------
+\begin{document}
+\maketitle
+
+
+\begin{problem}
+	Recall the definitions of the \emph{M\"obius function} $\mu$ (in HW 3) and the \emph{Dirichlet convolution} \cite[Definition 16.5]{LecNote}. Then finish the followings.
+	\begin{listinprob}
+		\item (3 pts) Let $\delta_{1}$ be the function defined as follows:
+		\[
+			\delta_{1}(n) := 
+			\begin{dcases*}
+				1 & if $n=1$,\\
+				0 & if otherwise.
+			\end{dcases*}
+		\]
+		\textbf{Prove that} $\delta_{1}\star f = f\star\delta_{1} = f$ for any arithmetic function $f$.
+		(In other words, $\delta_{1}$ is the \emph{identity} for the binary operation $\star$.)
+%----------------------------------------
+\begin{solution} %Do not delete
+WRITE YOUR SOLUTION HERE
+\end{solution}\clearpage %Do not delete
+%----------------------------------------
+
+		\item (3 pts) Let $\bm{1}$ be the constant function mapping any positive integer to $1$. \textbf{Prove that} $\mu\star\bm{1}=\delta_{1}$. (In other words, $\mu$ is a \emph{unit} for the binary operation $\star$.)
+%----------------------------------------
+\begin{solution} %Do not delete
+WRITE YOUR SOLUTION HERE
+\end{solution}\clearpage %Do not delete
+%----------------------------------------
+
+		\item (3 pts) \textbf{Prove that} $f\star g = g\star f$ for any arithmetic functions $f$ and $g$. (In other words, the binary operation $\star$ is \emph{commutative}.)
+		\begin{hint}
+			Using \cite[Exercise 7.1]{LecNote}.
+			More precisely, show that $d\mapsto \frac{n}{d}$ is a bijection from $\mathscr{D}(n)$ to itself and then use this bijection to show $f\star g = g\star f$.
+		\end{hint}
+%----------------------------------------
+\begin{solution} %Do not delete
+WRITE YOUR SOLUTION HERE
+\end{solution}\clearpage %Do not delete
+%----------------------------------------
+
+		\item (6 pts) \textbf{Prove that} $(f\star g)\star h = f\star (g\star h)$ for any arithmetic functions $f$, $g$, and $h$. (In other words, the binary operation $\star$ is \emph{associative}.)
+		\begin{hint}
+			Using \cite[Exercise 7.2]{LecNote}.
+			More precisely, 
+			define $f\star g\star h$ as follows:
+			\[
+				(f\star g\star h)(n):=\sum_{abc=n}f(a)g(b)h(c),
+			\]
+			where the summation is taken over the set $\mathscr{D}_{3}(n):=\Set*{ (a,b,c)\in\mathscr{D}(n)^3 \given abc=n }$. 
+			Show that each of $(f\star g)\star h$ and $f\star (g\star h)$ is equal to $f\star g\star h$ using a bijective map from its summation index set to $\mathscr{D}_{3}(n)$. 
+		\end{hint}
+		(At this stage, we see that the set of arithmetic functions equipped with the binary operation $\star$ and the element $\delta_{1}$ forms a \emph{commutative monoid}.)
+%----------------------------------------
+\begin{solution} %Do not delete
+WRITE YOUR SOLUTION HERE
+\end{solution}\clearpage %Do not delete
+%----------------------------------------
+
+		\item (5 pts) Suppose $f$ and $g$ are two multiplicative functions. \textbf{Prove that} $f \star g$ is a multiplicative function.
+		\begin{hint}
+			For any copirme pairs $(m,n)$, use the bijection 
+			$\Phi\colon \mathscr{D}(m)\times\mathscr{D}(n) \rightarrow \mathscr{D}(mn)$ in \cite[Theorem 7.1]{LecNote} to do the substitutions.
+		\end{hint}
+		(Hence, the subset of \emph{multiplicative} functions forms a \emph{submonoid}.)
+%----------------------------------------
+\begin{solution} %Do not delete
+WRITE YOUR SOLUTION HERE
+\end{solution}\clearpage %Do not delete
+%----------------------------------------
+
+		\item (5 pts) Say an arithmetic function $f$ is invertible under the operation $\star$ if there is another arithmetic function $g$ such that $f\star g=\delta_{1}$. \textbf{Prove that} $f$ is invertible under the operation $\star$ if and only if $f(1)\neq 0$. 
+		\begin{hint}
+			Spell out the equality $(f\star g)(n) = \delta_{1}(n)$ and solve out $f(n)$.
+		\end{hint}
+	\end{listinprob}
+\end{problem}
+%----------------------------------------
+\begin{solution} %Do not delete
+WRITE YOUR SOLUTION HERE
+\end{solution}\clearpage %Do not delete
+%----------------------------------------
+
+
+\begin{problem}[10 pts]
+	Suppose $p$ is an odd prime and $q$ is a prime divisor of $2^p - 1$. \textbf{Prove that} $q \equiv 1 \pmod{2p}$.
+	\begin{hint}
+		First show that $p$ is the length of a multiplicative dynamic. Then use \cite[Theorem 13.11]{LecNote}.
+	\end{hint}
+\end{problem}
+%----------------------------------------
+\begin{solution} %Do not delete
+WRITE YOUR SOLUTION HERE
+\end{solution}\clearpage %Do not delete
+%----------------------------------------
+
+
+\begin{problem}[10 pts]
+	A \emph{Sophie Germain prime} is a prime number $p$ such that $2p + 1$ is also a prime. For example, $p = 2, 3, 5$ are Sophie Germain primes, but $p = 7$ is not (since $15 = 2\cdot 7 + 1$ is not a prime).\\
+	\textbf{Prove that} if $p$ is a Sophie Germain prime, then $2p + 1$ is a divisor either of $2^p - 1$ or of $2^p + 1$, but not of both.
+	\begin{hint}
+		Use Fermat's little theorem and the primality of $q$.
+	\end{hint}
+\end{problem}
+%----------------------------------------
+\begin{solution} %Do not delete
+WRITE YOUR SOLUTION HERE
+\end{solution}\clearpage %Do not delete
+%----------------------------------------
+
+\begin{thebibliography}{9}  %Do not delete
+	%List your references here
+	\bibitem[TEXTBOOK]{texbook}
+	\emph{An Illustrated Theory of Numbers}, Martin H. Weissman.
+
+	\bibitem[Lecture Note]{LecNote}
+	\emph{Lecture notes of Math 110}, Xu Gao.
+	
+	\bibitem[label]{citekey}
+	[Book(s): \emph{Title}, Author ] or [Online: \href{http://example.com/}{Link}]
+\end{thebibliography}  %Do not delete
+%------------------------
+\end{document}

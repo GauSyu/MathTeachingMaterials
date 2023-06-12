@@ -1,0 +1,289 @@
+%LaTeX Template 
+%%	by	Xu Gao (gausyu@gmail.com)
+%%LPPL: http://www.latex-project.org/lppl.txt
+%------------------------
+%The following is the Preamble
+%------------------------
+\documentclass[11pt]{article}
+%This is the document class. 
+%%	Most common: article, beamer, book, etc.
+%%	11pt means the default font size is 11pt. One can also use 10pt, 11pt, or 12pt.
+%%	See https://en.wikibooks.org/wiki/LaTeX/Document_Structure#Document_classes for explaination.
+%------------------------
+%Packages
+%------------------------
+\usepackage[a4paper,total={6in, 9in}]{geometry} 
+%This aims to customize page layout
+\usepackage[T1]{fontenc}
+%Using T1 font
+\usepackage[leqno]{mathtools}
+%The main MATH package (for whom may wonder, mathtools load amsmath automatically, so no need \usepackage{amsmath})
+\usepackage{amsthm}
+%This defines the theorem enviroments
+\usepackage{amssymb}
+%Math symbols
+\usepackage{bm}
+%Bold math fonts, provide \bm{} command
+\usepackage[scr=rsfs,cal=euler]{mathalpha}
+%Math fonts 
+%%The package provides means of loading maths alphabets (such as are normally addressed via macros \mathcal, \mathbb, \mathfrak and \mathscr)
+%%How to use? "scr=" set what font \mathscr use, "cal=" set what font \mathcal use, "bb=" set what font \mathbb use, and "frak=" set what font \mathfrak use.
+\usepackage{tikz}
+%Drawing
+\usepackage{graphicx}
+%Support for graphics
+\usepackage{hyperref}
+\usepackage[nameinlink]{cleveref}
+%Hyper links
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	urlcolor=magenta
+}
+%Color links
+\usepackage{etoolbox}
+%Programming
+\usepackage[shortlabels]{enumitem}
+%Enable enumerate modification
+\usepackage{tcolorbox}
+%provides an environment for coloured and framed text boxes with a heading line.
+\tcbset{colback=white}
+%------------------------
+%Theorem-like Enviroments
+%------------------------
+\crefname{equation}{}{}
+\theoremstyle{plain}
+%This is the theorem style, plain means blod title and italic body
+\newtheorem{theorem}{Theorem}
+%This is how you define a theorem-like enviroment.
+\newtheorem{lemma}[equation]{Lemma}
+\newtheorem{proposition}[equation]{Proposition}
+%The option [equation] means the lemmas are numbered following the same system of equation.
+\newtheorem*{propstar}{Proposition}
+%Star version defines unnumbered enviroments
+\theoremstyle{definition}
+%This is the theorem style, definition means blod title and normal body
+\newtheorem*{defn}{Definition}
+\newtheorem{example}[equation]{Example}
+%The option [equation] means the examples are numbered following the same system of equation.
+\newtheorem{problem}{Problem}
+%This is the enviroment used as problems in HWs.
+\theoremstyle{remark}
+%This is the theorem style, remark means italic title and normal body
+\newtheorem*{remark}{Remark}
+\newtheorem*{hint}{Hint}
+\newtheorem*{optional}{Optional}
+%Remark enviroment
+\numberwithin{equation}{problem}
+%Let equations be numbered with in each problems.
+\NewDocumentEnvironment{solution} {o} 
+{\begin{proof}[\IfNoValueTF{#1}{\textbf{Solution}}{\textbf{Solution} (#1)}]}{\end{proof}}
+%This defines the enviroment for you to write solutions.
+%------------------------
+\newlist{listinprob}{enumerate}{1}
+\setlist[listinprob]{label=(\alph{listinprobi}),
+                  ref=\theproblem.(\alph{listinprobi})}
+\crefname{listinprobi}{problem}{problems}
+\Crefname{listinprobi}{Problem}{Problems}
+%This defines a new list type used in the enviroment problem.
+%------------------------
+%DocumentCommands
+%------------------------
+%Notations for number sets
+\NewDocumentCommand \N {} { \mathbb{N} }%Natural numbers
+\NewDocumentCommand \Z {} { \mathbb{Z} }%Integers
+\NewDocumentCommand \Q {} { \mathbb{Q} }%Rational Numbers
+\NewDocumentCommand \R {} { \mathbb{R} }%Real Numbers
+\NewDocumentCommand \C {} { \mathbb{C} }%Complex Numbers
+\NewDocumentCommand \F {} { \mathbb{F} }%Field
+\NewDocumentCommand \scrO {} {	\mathscr{O}	}%Dedekind doamin
+%Notations for maps
+\DeclareMathOperator{\id}{id} % identity
+\DeclareMathOperator{\pr}{pr} % projection
+\DeclareMathOperator{\pt}{pt} % point
+\DeclareMathOperator{\res}{res} % restriction
+%PairedDelimiters
+\DeclarePairedDelimiterX\abs[1]\lvert\rvert
+  { \ifblank{#1}{\:\cdot\:}{#1} }
+%abstract value function
+\DeclarePairedDelimiterX\norm[1]\lVert\rVert
+  { \ifblank{#1}{\:\cdot\:}{#1} }
+%the norm function
+\DeclarePairedDelimiterX\ceil[1]\lceil\rceil
+  { \ifblank{#1}{\:\cdot\:}{#1} }
+%ceil function
+\DeclarePairedDelimiterX\floor[1]\lfloor\rfloor
+  { \ifblank{#1}{\:\cdot\:}{#1} }
+%floor function
+\DeclarePairedDelimiterX\pairing[2]\langle\rangle
+  { \ifblank{#1}{\:\cdot\:}{#1}, \ifblank{#2}{\:\cdot\:}{#2} }
+\DeclarePairedDelimiterX\inner[2]\lparen\rparen
+  { \ifblank{#1}{\:\cdot\:}{#1}, \ifblank{#2}{\:\cdot\:}{#2} }
+%Inner product
+\providecommand\given{}
+\newcommand\SetSymbol[1][]
+  { \nonscript\:#1\vert\allowbreak\nonscript\:\mathopen{} }
+\DeclarePairedDelimiterX\Set[1]\{\}
+  { \renewcommand\given{\SetSymbol[\delimsize]}#1 }
+%a set
+%
+%Miscellaneous
+\NewDocumentCommand \vect { m } { \mathbf{#1} }
+%Vector
+\RenewDocumentCommand \le {} { \leqslant }
+\RenewDocumentCommand \ge {} { \geqslant }
+%Change the inequality symbols
+\NewDocumentCommand \tforall {} {\quad\text{for all}\quad}
+%------------------------
+% Additional math symbols, used for the Math 110 course
+\DeclareMathOperator*\GCD{GCD}
+\DeclareMathOperator*\LCM{LCM}
+\usepackage{derivative}% Support typing calculus notations.
+%------------------------
+\allowdisplaybreaks
+%Allow a long equation to display in more than one page.
+
+%The following change the default layout of title
+\makeatletter
+\def\@maketitle{%
+	\newpage
+	\null
+	\vskip 2em%
+	\begin{center}%
+		\let \footnote \thanks
+		\sffamily 
+		{\LARGE \@title \par}%
+		\vskip 1.5em%
+		{\large \@subtitle \par}%
+		\vskip 1.5em%
+		{\large Student name: \@author \par}%
+		\ifdefempty{\@acknowledge}{}%
+		{\large With help of: \@acknowledge \par}%
+		\vskip 1em%
+		{\large \@date}%
+	\end{center}%
+	\par
+	\vskip 1.5em%
+}	
+\global\let\@subtitle\@empty
+\DeclareRobustCommand*{\subtitle}[1]{\gdef\@subtitle{#1}}
+\global\let\@acknowledge\@empty
+\DeclareRobustCommand*{\acknowledge}[1]{\gdef\@acknowledge{#1}}
+\makeatother
+%Leave this change alone if you don't know what it means
+
+%%%
+%%%	START WORKS
+%%%
+%------------------------
+%Information of the file
+%------------------------
+\title{Homework 7 (due Mar. 12)}
+%The title of the file
+\author{[Your Full Name Here]}
+%Input your full name here.
+% \acknowledge{[Your collaborators]}
+%Input your collaborators, if none, comment it.
+\subtitle{MATH 110~|~Introduction to Number Theory~|~Winter 2023}
+%The subtitle
+\date{\today} 
+%The date, if commented, the value will be \today
+ 
+%------------------------
+%Document starts here
+%------------------------
+\begin{document}
+\maketitle
+
+\begin{problem}[20 pts]
+	\textbf{Find all} natural representatives $x$ modulo $63$ such that \[x^2\equiv 22\pmod{63}.\]
+\end{problem}
+\begin{hint}
+	Use \emph{Chinese Remainder theorem} \cite[Lecture 19]{LecNote}.
+\end{hint}
+%----------------------------------------
+\begin{solution} %Do not delete
+WRITE YOUR SOLUTION HERE
+\end{solution}\clearpage %Do not delete
+%----------------------------------------
+
+
+\begin{problem}[20 pts]
+	\textbf{Find all} roots of the polynomial $x^3+x+1$ modulo $27$. Write your answer in natural representatives modulo $27$.
+\end{problem}
+\begin{hint}
+	Use \emph{Hensel's lifting} \cite[Lecture 20]{LecNote}.
+\end{hint}
+%----------------------------------------
+\begin{solution} %Do not delete
+WRITE YOUR SOLUTION HERE
+\end{solution}\clearpage %Do not delete
+%----------------------------------------
+
+
+\begin{problem}
+	In what follows, we fix a prime number $p$.
+	For $n$ an integer, recall that $v_p(n)$ is the exponent of $p$ appearing in the prime factorization of $n$. Namely, $p^{v_p(n)}\mid n$, while $p^{v_p(n)+1}\nmid n$. Extend this definition to nonzero fractions as follows:
+	\[
+		v_p(\frac{n}{m}) := v_p(n) - v_p(m).
+	\]
+	\begin{listinprob}
+		\item (2 pts) \textbf{Show that}, if the two fractions $\frac{n}{m}$ and $\frac{n'}{m'}$ represent the same rational number, then $v_p(\frac{n}{m})=v_p(\frac{n'}{m'})$.
+	\end{listinprob}
+%----------------------------------------
+\begin{solution} %Do not delete
+WRITE YOUR SOLUTION HERE
+\end{solution}\clearpage %Do not delete
+%----------------------------------------
+
+	Hence, we obtain a function $v_p\colon\Q^{\times}\to\Z$. (Recall that $\Q^{\times}$ consists of nonzero rational numbers). The \textbf{$p$-adic norm} of a rational number $x$ is defined to be
+	\[
+		\abs*{x}_p:=
+		\begin{dcases*}
+			p^{-v_p(x)} & if $x\neq 0$;\\
+			0 & if $x=0$.
+		\end{dcases*}
+	\]
+	For example,
+	\[
+		\abs*{\frac{24}{25}}_{2} = \frac{1}{8},\qquad 
+		\abs*{\frac{24}{25}}_{3} = \frac{1}{3},\qquad 
+		\abs*{\frac{24}{25}}_{5} = 25.
+	\]	
+	\begin{listinprob}[resume]
+		\item (3 pts) \textbf{Prove that} $\abs*{-x}_p = \abs*{x}_p$, and $\abs*{xy}_p = \abs*{x}_p\abs*{y}_p$.
+%----------------------------------------
+\begin{solution} %Do not delete
+WRITE YOUR SOLUTION HERE
+\end{solution}\clearpage %Do not delete
+%----------------------------------------
+
+		\item (5 pts) \textbf{Prove} the \emph{ultrametric triangle inequality}
+		\[
+			\abs*{x+y}_p \leq \max\Set*{\abs*{x}_p,\abs*{y}_p}.
+		\]
+	\end{listinprob}
+	\begin{remark}
+		Note that $\max\Set*{\abs*{x}_p,\abs*{y}_p}\le\abs*{x}_p+\abs*{y}_p$. Hence, the ultrametric triangle inequality implies the usual  triangle inequality. The previous two says that $\abs*{}_p$ can be viewed as analogy of the usual Euclidean norm of vectors, or the absolute value of real numbers.
+	\end{remark}
+\end{problem}
+%----------------------------------------
+\begin{solution} %Do not delete
+WRITE YOUR SOLUTION HERE
+\end{solution}\clearpage %Do not delete
+%----------------------------------------
+
+\begin{thebibliography}{9}  %Do not delete
+%List your references here
+
+\bibitem[Lecture Note]{LecNote}
+\emph{Lecture notes of Math 110}, Xu Gao.
+
+\bibitem[TEXT]{texbook}
+\emph{An Illustrated Theory of Numbers}, Martin H. Weissman.
+
+\bibitem[label]{citekey}
+[Book(s): \emph{Title}, Author ] or [Online: \href{http://example.com/}{Link}]
+\end{thebibliography}  %Do not delete
+%------------------------
+\end{document}

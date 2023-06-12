@@ -1,0 +1,283 @@
+%LaTeX Template 
+%%	by	Xu Gao (gausyu@gmail.com)
+%%LPPL: http://www.latex-project.org/lppl.txt
+%------------------------
+%The following is the Preamble
+%------------------------
+\documentclass[11pt]{article}
+%This is the document class. 
+%%	Most common: article, beamer, book, etc.
+%%	11pt means the default font size is 11pt. One can also use 10pt, 11pt, or 12pt.
+%%	See https://en.wikibooks.org/wiki/LaTeX/Document_Structure#Document_classes for explaination.
+%------------------------
+%Packages
+%------------------------
+\usepackage[a4paper,total={6in, 9in}]{geometry} 
+%This aims to customize page layout
+\usepackage[T1]{fontenc}
+%Using T1 font
+\usepackage[leqno]{mathtools}
+%The main MATH package (for whom may wonder, mathtools load amsmath automatically, so no need \usepackage{amsmath})
+\usepackage{amsthm}
+%This defines the theorem enviroments
+\usepackage{amssymb}
+%Math symbols
+\usepackage{bm}
+%Bold math fonts, provide \bm{} command
+\usepackage[scr=rsfs,cal=euler]{mathalpha}
+%Math fonts 
+%%The package provides means of loading maths alphabets (such as are normally addressed via macros \mathcal, \mathbb, \mathfrak and \mathscr)
+%%How to use? "scr=" set what font \mathscr use, "cal=" set what font \mathcal use, "bb=" set what font \mathbb use, and "frak=" set what font \mathfrak use.
+\usepackage{tikz}
+%Drawing
+\usepackage{graphicx}
+%Support for graphics
+\usepackage{hyperref}
+\usepackage[nameinlink]{cleveref}
+%Hyper links
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	urlcolor=magenta
+}
+%Color links
+\usepackage{etoolbox}
+%Programming
+\usepackage[shortlabels]{enumitem}
+%Enable enumerate modification
+\usepackage{tcolorbox}
+%provides an environment for coloured and framed text boxes with a heading line.
+\tcbset{colback=white}
+%------------------------
+%Theorem-like Enviroments
+%------------------------
+\crefname{equation}{}{}
+\theoremstyle{plain}
+%This is the theorem style, plain means blod title and italic body
+\newtheorem{theorem}{Theorem}
+%This is how you define a theorem-like enviroment.
+\newtheorem{lemma}[equation]{Lemma}
+\newtheorem{proposition}[equation]{Proposition}
+%The option [equation] means the lemmas are numbered following the same system of equation.
+\newtheorem*{propstar}{Proposition}
+%Star version defines unnumbered enviroments
+\theoremstyle{definition}
+%This is the theorem style, definition means blod title and normal body
+\newtheorem*{defn}{Definition}
+\newtheorem{example}[equation]{Example}
+%The option [equation] means the examples are numbered following the same system of equation.
+\newtheorem{problem}{Problem}
+%This is the enviroment used as problems in HWs.
+\theoremstyle{remark}
+%This is the theorem style, remark means italic title and normal body
+\newtheorem*{remark}{Remark}
+\newtheorem*{hint}{Hint}
+\newtheorem*{optional}{Optional}
+%Remark enviroment
+\numberwithin{equation}{problem}
+%Let equations be numbered with in each problems.
+\NewDocumentEnvironment{solution} {o} 
+{\begin{proof}[\IfNoValueTF{#1}{\textbf{Solution}}{\textbf{Solution} (#1)}]}{\end{proof}}
+%This defines the enviroment for you to write solutions.
+%------------------------
+\newlist{listinprob}{enumerate}{1}
+\setlist[listinprob]{label=(\alph{listinprobi}),
+                  ref=\theproblem.(\alph{listinprobi})}
+\crefname{listinprobi}{problem}{problems}
+\Crefname{listinprobi}{Problem}{Problems}
+%This defines a new list type used in the enviroment problem.
+%------------------------
+%DocumentCommands
+%------------------------
+%Notations for number sets
+\NewDocumentCommand \N {} { \mathbb{N} }%Natural numbers
+\NewDocumentCommand \Z {} { \mathbb{Z} }%Integers
+\NewDocumentCommand \Q {} { \mathbb{Q} }%Rational Numbers
+\NewDocumentCommand \R {} { \mathbb{R} }%Real Numbers
+\NewDocumentCommand \C {} { \mathbb{C} }%Complex Numbers
+\NewDocumentCommand \F {} { \mathbb{F} }%Field
+\NewDocumentCommand \scrO {} {	\mathscr{O}	}%Dedekind doamin
+%Notations for maps
+\DeclareMathOperator{\id}{id} % identity
+\DeclareMathOperator{\pr}{pr} % projection
+\DeclareMathOperator{\pt}{pt} % point
+\DeclareMathOperator{\res}{res} % restriction
+%PairedDelimiters
+\DeclarePairedDelimiterX\abs[1]\lvert\rvert
+  { \ifblank{#1}{\:\cdot\:}{#1} }
+%abstract value function
+\DeclarePairedDelimiterX\norm[1]\lVert\rVert
+  { \ifblank{#1}{\:\cdot\:}{#1} }
+%the norm function
+\DeclarePairedDelimiterX\ceil[1]\lceil\rceil
+  { \ifblank{#1}{\:\cdot\:}{#1} }
+%ceil function
+\DeclarePairedDelimiterX\floor[1]\lfloor\rfloor
+  { \ifblank{#1}{\:\cdot\:}{#1} }
+%floor function
+\DeclarePairedDelimiterX\pairing[2]\langle\rangle
+  { \ifblank{#1}{\:\cdot\:}{#1}, \ifblank{#2}{\:\cdot\:}{#2} }
+\DeclarePairedDelimiterX\inner[2]\lparen\rparen
+  { \ifblank{#1}{\:\cdot\:}{#1}, \ifblank{#2}{\:\cdot\:}{#2} }
+%Inner product
+\providecommand\given{}
+\newcommand\SetSymbol[1][]
+  { \nonscript\:#1\vert\allowbreak\nonscript\:\mathopen{} }
+\DeclarePairedDelimiterX\Set[1]\{\}
+  { \renewcommand\given{\SetSymbol[\delimsize]}#1 }
+%a set
+%
+%Miscellaneous
+\NewDocumentCommand \vect { m } { \mathbf{#1} }
+%Vector
+\RenewDocumentCommand \le {} { \leqslant }
+\RenewDocumentCommand \ge {} { \geqslant }
+%Change the inequality symbols
+\NewDocumentCommand \tforall {} {\quad\text{for all}\quad}
+%------------------------
+% Additional math symbols, used for the Math 110 course
+\DeclareMathOperator*\GCD{GCD}
+\DeclareMathOperator*\LCM{LCM}
+\usepackage{derivative}% Support typing calculus notations.
+%------------------------
+\allowdisplaybreaks
+%Allow a long equation to display in more than one page.
+
+%The following change the default layout of title
+\makeatletter
+\def\@maketitle{%
+	\newpage
+	\null
+	\vskip 2em%
+	\begin{center}%
+		\let \footnote \thanks
+		\sffamily 
+		{\LARGE \@title \par}%
+		\vskip 1.5em%
+		{\large \@subtitle \par}%
+		\vskip 1.5em%
+		{\large Student name: \@author \par}%
+		\ifdefempty{\@acknowledge}{}%
+		{\large With help of: \@acknowledge \par}%
+		\vskip 1em%
+		{\large \@date}%
+	\end{center}%
+	\par
+	\vskip 1.5em%
+}	
+\global\let\@subtitle\@empty
+\DeclareRobustCommand*{\subtitle}[1]{\gdef\@subtitle{#1}}
+\global\let\@acknowledge\@empty
+\DeclareRobustCommand*{\acknowledge}[1]{\gdef\@acknowledge{#1}}
+\makeatother
+%Leave this change alone if you don't know what it means
+
+%%%
+%%%	START WORKS
+%%%
+%------------------------
+%Information of the file
+%------------------------
+\title{Homework 6 (due Mar. 5)}
+%The title of the file
+\author{[Your Full Name Here]}
+%Input your full name here.
+% \acknowledge{[Your collaborators]}
+%Input your collaborators, if none, comment it.
+\subtitle{MATH 110~|~Introduction to Number Theory~|~Winter 2023}
+%The subtitle
+\date{\today} 
+%The date, if commented, the value will be \today
+ 
+%------------------------
+%Document starts here
+%------------------------
+\begin{document}
+\maketitle
+
+
+\begin{problem}[15 pts]
+	Give a counterexample to \textbf{disprove} the \emph{unique prime factorization property} in $\Z/20[T]$.
+	\begin{remark}
+		Refer to Problem 4 in HW 2 for the related notions. Note that, to show your example fails the \emph{unique prime factorization property}, you need to show your factors are \emph{prime} (in the context of polynomials, irreducible), and not associated to either other (that is, not different by a nonzero constant factor).
+	\end{remark}
+\end{problem}
+%----------------------------------------
+\begin{solution} %Do not delete
+WRITE YOUR SOLUTION HERE
+\end{solution}\clearpage %Do not delete
+%----------------------------------------
+
+
+
+\begin{problem}
+	Let $p$ be a prime number. 
+	\begin{listinprob}
+		\item (5 pts) Let $f(T)$ be a polynomial modulo $p$ of degree $2$ or $3$. \textbf{Prove that} $f(T)$ is irreducible if and only if $f(T)$ has no roots modulo $p$.
+		\begin{hint}
+			Prove the contrapositive, looking at the degrees of the divisors of $f(T)$.
+		\end{hint}
+%----------------------------------------
+\begin{solution} %Do not delete
+WRITE YOUR SOLUTION HERE
+\end{solution}\clearpage %Do not delete
+%----------------------------------------
+
+		\item (5 pts) \textbf{Count} the number of monic polynomials modulo $p$ of degree $d$.
+%----------------------------------------
+\begin{solution} %Do not delete
+WRITE YOUR SOLUTION HERE
+\end{solution}\clearpage %Do not delete
+%----------------------------------------
+
+		\item (5 pts) \textbf{Count} the number of monic irreducible polynomials modulo $p$ of degree $2$.
+%----------------------------------------
+\begin{solution} %Do not delete
+WRITE YOUR SOLUTION HERE
+\end{solution}\clearpage %Do not delete
+%----------------------------------------
+
+		\item (5 pts) \textbf{Count} the number of monic irreducible polynomials modulo $p$ of degree $3$.
+		% \item (5 pts) Count the number of monic irreducible polynomials modulo $p$ of degree $4$.
+	\end{listinprob}	
+\end{problem}
+%----------------------------------------
+\begin{solution} %Do not delete
+WRITE YOUR SOLUTION HERE
+\end{solution}\clearpage %Do not delete
+%----------------------------------------
+
+
+\begin{problem}
+	Let $f(T)$ be an integer polynomial. Its \emph{derivative} $f'(T)$ is \emph{defined} to be the integer polynomial obtained from $f(T)$ as follows: discard the constant term, then for each positive integer $n$, replace $T^n$ by $nT^{n-1}$ (here $T^0$ means the constant $1$). 
+	One can repeat this process to define what is the \emph{$k$-th derivative} $f^{(k)}(T)$ of $f(T)$.
+	\begin{listinprob}
+		\item (5 pts) Give a \textbf{formula} of the degree of $f^{(k)}(T)$ in terms of the $\deg(f)$. 
+		\begin{hint}
+			First show that $\deg(f')=\deg(f)-1$ as long as $f\neq 0$. Be aware of what will happen when $k>\deg(f)$.
+		\end{hint}
+%----------------------------------------
+\begin{solution} %Do not delete
+WRITE YOUR SOLUTION HERE
+\end{solution}\clearpage %Do not delete
+%----------------------------------------
+
+		\item (5 pts) \textbf{Prove that} taking derivative is compatible with modular reduction. Namely, if two integer polynomials $f(T)$ and $g(T)$ are congruence modulo $m$, then $f'(T)$ and $g'(T)$ are also congruence modulo $m$. Here $m$ is any modulus.
+	\end{listinprob}	
+\end{problem}
+%----------------------------------------
+\begin{solution} %Do not delete
+WRITE YOUR SOLUTION HERE
+\end{solution}\clearpage %Do not delete
+%----------------------------------------
+
+\begin{thebibliography}{9}  %Do not delete
+%List your references here
+\bibitem[TEXT]{texbook}
+\emph{An Illustrated Theory of Numbers}, Martin H. Weissman.
+
+\bibitem[label]{citekey}
+[Book(s): \emph{Title}, Author ] or [Online: \href{http://example.com/}{Link}]
+\end{thebibliography}  %Do not delete
+%------------------------
+\end{document}
