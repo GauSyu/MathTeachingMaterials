@@ -1,0 +1,284 @@
+%LaTeX Template 
+%%	by	Xu Gao (gausyu@gmail.com)
+%%LPPL: http://www.latex-project.org/lppl.txt
+%------------------------
+%The following is the Preamble
+%------------------------
+\documentclass[11pt]{article}
+%This is the document class. 
+%%	Most common: article, beamer, book, etc.
+%%	11pt means the default font size is 11pt. One can also use 10pt, 11pt, or 12pt.
+%%	See https://en.wikibooks.org/wiki/LaTeX/Document_Structure#Document_classes for explaination.
+%------------------------
+%Packages
+%------------------------
+\usepackage[a4paper,total={6in, 9in}]{geometry} 
+%This aims to customize page layout
+\usepackage[T1]{fontenc}
+%Using T1 font
+\usepackage{mathtools}
+%The main MATH package (for whom may wonder, mathtools load amsmath automatically, so no need \usepackage{amsmath})
+\usepackage{amsthm}
+%This defines the theorem enviroments
+\usepackage{amssymb}
+%Math symbols
+\usepackage{bm}
+%Bold math fonts, provide \bm{} command
+\usepackage[scr=rsfs,cal=euler]{mathalpha}
+%Math fonts 
+%%The package provides means of loading maths alphabets (such as are normally addressed via macros \mathcal, \mathbb, \mathfrak and \mathscr)
+%%How to use? "scr=" set what font \mathscr use, "cal=" set what font \mathcal use, "bb=" set what font \mathbb use, and "frak=" set what font \mathfrak use.
+\usepackage{tikz}
+%Drawing
+\usepackage{graphicx}
+%Support for graphics
+\usepackage{hyperref}
+\usepackage[nameinlink]{cleveref}
+%Hyper links
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	urlcolor=magenta,
+	citecolor=blue
+}
+%Color links
+\usepackage{etoolbox}
+%Programming
+\usepackage[shortlabels]{enumitem}
+%Enable enumerate modification
+\usepackage{tcolorbox}
+%provides an environment for coloured and framed text boxes with a heading line.
+\tcbset{colback=white}
+%------------------------
+%Theorem-like Enviroments
+%------------------------
+\theoremstyle{plain}
+%This is the theorem style, plain means blod title and italic body
+\newtheorem{theorem}{Theorem}[section]
+%This is how you define a theorem-like enviroment.
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+%The option [equation] means the lemmas are numbered following the same system of equation.
+\newtheorem*{propstar}{Proposition}
+%Star version defines unnumbered enviroments
+\theoremstyle{definition}
+%This is the theorem style, definition means blod title and normal body
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+%The option [equation] means the examples are numbered following the same system of equation.
+\newtheorem{problem}{Problem}
+\Crefname{problem}{problem}{problems}
+\Crefname{problem}{Problem}{Problems}
+%This is the enviroment used as problems in HWs.
+\theoremstyle{remark}
+%This is the theorem style, remark means italic title and normal body
+\newtheorem*{remark}{Remark}
+\newtheorem*{hint}{Hint}
+\newtheorem*{optional}{Optional}
+%Remark enviroment
+\numberwithin{equation}{section}
+%Let equations be numbered with in each problems.
+\NewDocumentEnvironment{solution} {o+b} 
+{\begin{proof}[\IfNoValueTF{#1}{\textbf{Solution}}{\textbf{Solution} (#1)}]#2\end{proof}}{}
+%This defines the enviroment for you to write solutions.
+%------------------------
+\newlist{listinprob}{enumerate}{1}
+\setlist[listinprob]{label=(\alph{listinprobi}),
+									ref=\theproblem.(\alph{listinprobi}),
+									noitemsep}
+\Crefname{listinprobi}{problem}{problems}
+\Crefname{listinprobi}{Problem}{Problems}
+%This defines a new list type used in the enviroment problem.
+%------------------------
+%DocumentCommands
+%------------------------
+%Notations for number sets
+\NewDocumentCommand \N {} { \mathbb{N} }%Natural numbers
+\NewDocumentCommand \Z {} { \mathbb{Z} }%Integers
+\NewDocumentCommand \Q {} { \mathbb{Q} }%Rational Numbers
+\NewDocumentCommand \R {} { \mathbb{R} }%Real Numbers
+\NewDocumentCommand \C {} { \mathbb{C} }%Complex Numbers
+\NewDocumentCommand \F {} { \mathbb{F} }%Field
+%Notations for maps
+\DeclareMathOperator{\id}{id} % identity
+\DeclareMathOperator{\pr}{pr} % projection
+\DeclareMathOperator{\pt}{pt} % point
+\DeclareMathOperator{\res}{res} % restriction
+%PairedDelimiters
+\DeclarePairedDelimiterX\abs[1]\lvert\rvert
+	{ \ifblank{#1}{\:\cdot\:}{#1} }
+%abstract value function
+\DeclarePairedDelimiterX\norm[1]\lVert\rVert
+	{ \ifblank{#1}{\:\cdot\:}{#1} }
+%the norm function
+\DeclarePairedDelimiterX\ceil[1]\lceil\rceil
+	{ \ifblank{#1}{\:\cdot\:}{#1} }
+%ceil function
+\DeclarePairedDelimiterX\floor[1]\lfloor\rfloor
+	{ \ifblank{#1}{\:\cdot\:}{#1} }
+%floor function
+\DeclarePairedDelimiterX\pairing[2]\langle\rangle
+	{ \ifblank{#1}{\:\cdot\:}{#1}, \ifblank{#2}{\:\cdot\:}{#2} }
+\DeclarePairedDelimiterX\inner[2]\lparen\rparen
+	{ \ifblank{#1}{\:\cdot\:}{#1}, \ifblank{#2}{\:\cdot\:}{#2} }
+%Inner product
+\providecommand\given{}
+\newcommand\SetSymbol[1][]
+	{ \nonscript\:#1\vert\allowbreak\nonscript\:\mathopen{} }
+\DeclarePairedDelimiterX\Set[1]\{\}
+	{ \renewcommand\given{\SetSymbol[\delimsize]}#1 }
+%a set
+%
+%Miscellaneous
+\NewDocumentCommand \vect { m } { \mathbf{#1} }
+%Vector
+\RenewDocumentCommand \le {} { \leqslant }
+\RenewDocumentCommand \ge {} { \geqslant }
+%Change the inequality symbols
+\NewDocumentCommand \txforall {} {\quad\text{for all}\quad}
+%------------------------
+% Additional math symbols, used for the Math 110 course
+% \DeclareMathOperator*\GCD{GCD}
+\DeclareMathOperator*\lcm{lcm}
+%------------------------
+\allowdisplaybreaks
+%Allow a long equation to display in more than one page.
+
+%The following change the default layout of title
+\makeatletter
+\def\@maketitle{%
+	\newpage
+	\null
+	\vskip 2em%
+	\begin{center}%
+		\let \footnote \thanks
+		\sffamily 
+		{\LARGE \@title \par}%
+		\vskip 1.5em%
+		{\large \@subtitle \par}%
+		\vskip 1.5em%
+		{\large \@author \par}%
+		\ifdefempty{\@acknowledge}{}%
+		{\large With help of: \@acknowledge \par}%
+		\vskip 1em%
+		{\large \@date}%
+	\end{center}%
+	\par
+	\vskip 1.5em%
+}	
+\global\let\@subtitle\@empty
+\DeclareRobustCommand*{\subtitle}[1]{\gdef\@subtitle{#1}}
+\global\let\@acknowledge\@empty
+\DeclareRobustCommand*{\acknowledge}[1]{\gdef\@acknowledge{#1}}
+\makeatother
+%Leave this change alone if you don't know what it means
+
+%------------------------
+%Information of the file
+%------------------------
+\title{Essay Rubrics}
+%The title of the essay
+\author{Xu Gao}
+%Input your full name here.
+% \acknowledge{[Your collaborators]}
+%Input your collaborators, if none, comment it.
+\subtitle{MATH 110~|~Introduction to Number Theory~|~Summer 2023}
+%The subtitle
+\date{\today} 
+%The date, if commented, the value will be \today
+
+%------------------------
+%Document starts here
+%------------------------
+\begin{document}
+\maketitle
+
+\section*{Instructions}
+You are required to submit a minimum of \textbf{3} pages of single-spaced, typed \textbf{English} and \textbf{math}, utilizing \LaTeX{} for formatting. For \LaTeX{} assistance, please refer to the provided guidelines on the Canvas platform.
+
+Ensure that your essay adheres to a structured format, starting with a \textbf{title} that clearly states your chosen topic. Begin with an engaging \textbf{introduction} that sets the stage for the reader and provides an overview of the topic you've selected to explore. As you progress, provide a comprehensive mathematical description of the subject, delving into key \textbf{concepts}, \textbf{theorems}, and relevant \textbf{applications}.
+
+Emphasize the connections between your topic and \textbf{number theory} while expressing your personal motivation for studying the subject. Your essay must include at least \textbf{1 complete proof}, \textbf{1 detailed example or application}, and \textbf{1 reference} other than the textbook listed in the syllabus.
+
+Maintain clarity and coherence in your sentences throughout the paper, ensuring that your content remains accessible and understandable to your peers, who comprise the intended audience.
+
+\section*{Possible Topics}
+Below are some potential topics you may choose for your project. However, if you have a different topic in mind that is not listed here, feel free to explore it for your project! 
+
+% \paragraph{Gaussian or Eisenstein Integers:} These numbers are a subset of complex numbers and have several properties that the integers have; they contain $\mathbb{Z}$ as a subset. One topic of interest here is the prime elements in these sets, specifically the question of whether primes that we know in integers are prime elements in this set.
+
+% \paragraph{Transcendental Numbers:} As discussed in class, these are complex numbers that don't occur as zeros of polynomials with integer coefficients. A topic of interest here will be providing a proof for the transcendence of Euler's number $e$, along with some historical comments on the transcendence of $\pi$ and transcendence theory itself.
+
+% \paragraph{Sieve Methods:} This theory includes methods and techniques to sift out primes, a prototype being the classical Sieve of Eratosthenes. A topic of interest here would be to review Sieve of Eratosthenes as an example, and further give an overview of the various sieve methods that currently exist.
+
+% \paragraph{Arithmetic Functions:} These are functions with domain the set of positive integers, and we care about properties like multiplicativity for these functions; we saw several interesting examples in class. A topic of particular interest, that you saw in a problem set, is the Möbius function, especially its relation to convolution, as seen in another problem set, via the so-called Möbius inversion formula.
+
+% \paragraph{Primality Test:} This is a test that checks if a given number is prime or not, an important thing to consider in, say, cryptography. A topic of interest here will be to investigate thoroughly one of the basic primality tests - Fermat primality test and discuss related types of numbers to it like Carmichael numbers, and then provide a general overview of other such tests.
+
+% \paragraph{RSA Cryptosystem:} A widely used public-key cryptosystem where the mathematical content of this system firmly relies on the number theory we discuss in this class. A topic of interest would be to give a brief introduction to cryptosystems, expand on what constitutes the RSA cryptosystem, and give a proof of correctness.
+
+% \paragraph{Elliptic Curves:} These are very interesting and famous objects of study in number theory. Much can be done here, but a topic of interest will be to discuss the group structure associated with rational solutions to the polynomial equation that defines an elliptic curve and how one can use this as a step towards something called Elliptic Curve Cryptography.
+
+% \paragraph{Roots of Unity:} These are complex numbers that lie on the unit circle in the complex plane and are solutions to the equation $z^n - 1 = 0$. There are several topics of interest here – one can talk about their basic properties, one can talk about the cyclotomic polynomials and go wherever that leads you, etc.
+
+% \paragraph{Pell's Equations:} These are very classical quadratic Diophantine equations of the form, for any positive squarefree integer $D$, $x^2 - Dy^2 = \pm 1$. A topic of interest would be to just deal with $D = 2$ and discuss the solutions to the resultant equations, on how there are infinitely many of them and how we know exactly what they look like.
+
+% \paragraph{Fermat's Last Theorem:} One of the most celebrated problems in mathematics, it states that there are no other integer solutions to the equation $x^n + y^n = z^n$ for $n > 2$ such that $xyz \neq 0$. Significant progress had been made much earlier by various mathematicians, especially Sophie Germain, before it was solved. A topic of interest would be to provide a sketch of Germain's proof for this equation for $n = 4$ and then a historical overview of this problem.
+
+% \paragraph{Riemann Zeta Function:} A very important and famous object of considerations, especially because of its relation to the Riemann hypothesis. If you're interested in this, get in touch with me, and we can discuss what can be achieved.
+
+% \paragraph{Sums of Squares:} A simple question to ask is – how many numbers can be written as sums of two squares, or three squares, or so on and so forth. There are satisfactory answers to these questions. A topic of interest would be to discuss and answer the question for sums of two squares, this will relate directly to Gaussian integers (topic one) and primes of a certain form.
+
+
+\paragraph{Gaussian or Eisenstein Integers:} These numbers are a subset of complex numbers and have several properties that the integers have; they contain $\mathbb{Z}$ as a subset. One topic of interest here is the prime elements in these sets, specifically the question of whether primes that we know in integers are prime elements in this set.
+
+\paragraph{Transcendental Numbers:} As discussed in class, these are complex numbers that don't occur as zeros of polynomials with integer coefficients. A topic of interest here will be providing a proof for the transcendence of Euler's number $e$, along with some historical comments on the transcendence of $\pi$ and transcendence theory itself.
+
+\paragraph{Sieve Methods:} This theory includes methods and techniques to sift out primes, a prototype being the classical Sieve of Eratosthenes. A topic of interest here would be to review the Sieve of Eratosthenes as an example and further give an overview of the various sieve methods that currently exist.
+
+\paragraph{Arithmetic Functions:} These are functions with domain the set of positive integers, and we care about properties like multiplicativity for these functions; we saw several interesting examples in class. A topic of particular interest, that you saw in a problem set, is the Möbius function, especially its relation to convolution, as seen in another problem set, via the so-called Möbius inversion formula.
+
+\paragraph{Primality Test:} This is a test that checks if a given number is prime or not, an important thing to consider in, say, cryptography. A topic of interest here will be to investigate thoroughly one of the basic primality tests - Fermat primality test and discuss related types of numbers to it like Carmichael numbers, and then provide a general overview of other such tests.
+
+\paragraph{RSA Cryptosystem:} A widely used public-key cryptosystem where the mathematical content of this system firmly relies on the number theory we discuss in this class. A topic of interest would be to give a brief introduction to cryptosystems, expand on what constitutes the RSA cryptosystem, and give a proof of correctness.
+
+\paragraph{Elliptic Curves:} These are very interesting and famous objects of study in number theory. Much can be done here, but a topic of interest will be to discuss the group structure associated with rational solutions to the polynomial equation that defines an elliptic curve and how one can use this as a step towards something called Elliptic Curve Cryptography.
+
+\paragraph{Roots of Unity:} These are complex numbers that lie on the unit circle in the complex plane and are solutions to the equation $z^n - 1 = 0$. There are several topics of interest here – one can talk about their basic properties, one can talk about the cyclotomic polynomials and go wherever that leads you, etc.
+
+\paragraph{Pell's Equations:} These are very classical quadratic Diophantine equations of the form, for any positive squarefree integer $D$, $x^2 - Dy^2 = \pm 1$. A topic of interest would be to just deal with $D = 2$ and discuss the solutions to the resultant equations, on how there are infinitely many of them and how we know exactly what they look like.
+
+\paragraph{Fermat's Last Theorem:} One of the most celebrated problems in mathematics, it states that there are no other integer solutions to the equation $x^n + y^n = z^n$ for $n > 2$ such that $xyz \neq 0$. Significant progress had been made much earlier by various mathematicians, especially Sophie Germain, before it was solved. A topic of interest would be to provide a sketch of Germain's proof for this equation for $n = 4$ and then a historical overview of this problem.
+
+\paragraph{Riemann Zeta Function:} A very important and famous object of consideration, especially because of its relation to the Riemann hypothesis. If you're interested in this, get in touch with me, and we can discuss what can be achieved.
+
+\paragraph{Sums of Squares:} A simple question to ask is - how many numbers can be written as sums of two squares, or three squares, or so on and so forth. There are satisfactory answers to these questions. A topic of interest would be to discuss and answer the question for sums of two squares, this will relate directly to Gaussian integers (topic one) and primes of a certain form.
+
+
+\section*{Rubrics}
+\begin{table}[h]
+	\footnotesize
+	\centering
+	\begin{tabular}{|l|p{1.45in}|p{1.4in}|p{1.4in}|}
+	\hline
+	Rubric & Excellent (4 - 5 pts.) & Adequate (3 pts.) & Poor (1 - 2 pts.) \\
+	\hline\hline
+	INTRODUCTION & The introduction is engaging and provides a clear background, establishing the relevance of the topic to the course. & The introduction offers some information but lacks engagement in presenting the topic's relation to the course. & The introduction lacks relevant information and fails to engage the reader with the topic's connection to the course. \\
+	\hline\hline
+	MECHANICS & The paper is virtually error-free in terms of spelling and grammar. & There are minor spelling or grammatical errors that do not significantly hinder readability. & The paper contains numerous spelling or grammatical errors, making it challenging to read. \\
+	\hline\hline
+	TYPESETTING & The typesetting of the paper, including math symbols and formulas, is exemplary. & There are minor typesetting issues that do not substantially impact readability. & The typesetting significantly hampers the paper's readability. \\
+	\hline\hline
+	PROOF & The required proof is well-written, logically sound, and easy to follow. & The required proof is mostly well-written, but some logical steps may be unclear. & The required proof is either absent, poorly written, or challenging to follow. \\
+	\hline\hline
+	EXAMPLE & The examples, including the required one, are well-crafted and effectively illustrate the topic. & Examples, including the required one, are somewhat unclear and may not effectively illustrate the topic. & The required example is either missing or inadequately explained, failing to relate to the topic. \\
+	\hline\hline
+	REFERENCE & The paper includes the required reference, appropriately cited throughout. & The paper includes the required reference but lacks proper citation in the content. & The paper does not provide any references. \\
+	\hline\hline
+	OVERALL & The paper demonstrates a profound understanding of the course material and the project topic. & The paper demonstrates some understanding of either the course material or the project topic. & The paper does not show a sufficient understanding of the course material or the project topic. \\
+	\hline
+	\end{tabular}		
+\end{table}
+	
+\end{document}

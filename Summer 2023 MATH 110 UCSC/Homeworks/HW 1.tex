@@ -1,0 +1,275 @@
+%LaTeX Template 
+%%	by	Xu Gao (gausyu@gmail.com)
+%%LPPL: http://www.latex-project.org/lppl.txt
+%------------------------
+%The following is the Preamble
+%------------------------
+\documentclass[11pt]{article}
+%This is the document class. 
+%%	Most common: article, beamer, book, etc.
+%%	11pt means the default font size is 11pt. One can also use 10pt, 11pt, or 12pt.
+%%	See https://en.wikibooks.org/wiki/LaTeX/Document_Structure#Document_classes for explaination.
+%------------------------
+%Packages
+%------------------------
+\usepackage[a4paper,total={6in, 9in}]{geometry} 
+%This aims to customize page layout
+\usepackage[T1]{fontenc}
+%Using T1 font
+\usepackage{mathtools}
+%The main MATH package (for whom may wonder, mathtools load amsmath automatically, so no need \usepackage{amsmath})
+\usepackage{amsthm}
+%This defines the theorem enviroments
+\usepackage{amssymb}
+%Math symbols
+\usepackage{bm}
+%Bold math fonts, provide \bm{} command
+\usepackage[scr=rsfs,cal=euler]{mathalpha}
+%Math fonts 
+%%The package provides means of loading maths alphabets (such as are normally addressed via macros \mathcal, \mathbb, \mathfrak and \mathscr)
+%%How to use? "scr=" set what font \mathscr use, "cal=" set what font \mathcal use, "bb=" set what font \mathbb use, and "frak=" set what font \mathfrak use.
+\usepackage{tikz}
+%Drawing
+\usepackage{graphicx}
+%Support for graphics
+\usepackage{hyperref}
+\usepackage[nameinlink]{cleveref}
+%Hyper links
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	urlcolor=magenta
+}
+%Color links
+\usepackage{etoolbox}
+%Programming
+\usepackage[shortlabels]{enumitem}
+%Enable enumerate modification
+\usepackage{tcolorbox}
+%provides an environment for coloured and framed text boxes with a heading line.
+\tcbset{colback=white}
+%------------------------
+%Theorem-like Enviroments
+%------------------------
+\theoremstyle{plain}
+%This is the theorem style, plain means blod title and italic body
+\newtheorem{theorem}{Theorem}
+%This is how you define a theorem-like enviroment.
+\newtheorem{lemma}[equation]{Lemma}
+\newtheorem{proposition}[equation]{Proposition}
+%The option [equation] means the lemmas are numbered following the same system of equation.
+\newtheorem*{propstar}{Proposition}
+%Star version defines unnumbered enviroments
+\theoremstyle{definition}
+%This is the theorem style, definition means blod title and normal body
+\newtheorem{example}[equation]{Example}
+%The option [equation] means the examples are numbered following the same system of equation.
+\newtheorem{problem}{Problem}
+\crefname{problem}{problem}{problems}
+\Crefname{problem}{Problem}{Problems}
+%This is the enviroment used as problems in HWs.
+\theoremstyle{remark}
+%This is the theorem style, remark means italic title and normal body
+\newtheorem*{remark}{Remark}
+\newtheorem*{hint}{Hint}
+\newtheorem*{optional}{Optional}
+%Remark enviroment
+\numberwithin{equation}{problem}
+%Let equations be numbered with in each problems.
+\NewDocumentEnvironment{solution} {o} 
+{\begin{proof}[\IfNoValueTF{#1}{\textbf{Solution}}{\textbf{Solution} (#1)}]}{\end{proof}}
+%This defines the enviroment for you to write solutions.
+%------------------------
+\newlist{listinprob}{enumerate}{1}
+\setlist[listinprob]{label=(\alph{listinprobi}),
+                  ref=\theproblem.(\alph{listinprobi}),
+                  noitemsep}
+\crefname{listinprobi}{problem}{problems}
+\Crefname{listinprobi}{Problem}{Problems}
+%This defines a new list type used in the enviroment problem.
+%------------------------
+%DocumentCommands
+%------------------------
+%Notations for number sets
+\NewDocumentCommand \N {} { \mathbb{N} }%Natural numbers
+\NewDocumentCommand \Z {} { \mathbb{Z} }%Integers
+\NewDocumentCommand \Q {} { \mathbb{Q} }%Rational Numbers
+\NewDocumentCommand \R {} { \mathbb{R} }%Real Numbers
+\NewDocumentCommand \C {} { \mathbb{C} }%Complex Numbers
+\NewDocumentCommand \F {} { \mathbb{F} }%Field
+%Notations for maps
+\DeclareMathOperator{\id}{id} % identity
+\DeclareMathOperator{\pr}{pr} % projection
+\DeclareMathOperator{\pt}{pt} % point
+\DeclareMathOperator{\res}{res} % restriction
+%PairedDelimiters
+\DeclarePairedDelimiterX\abs[1]\lvert\rvert
+  { \ifblank{#1}{\:\cdot\:}{#1} }
+%abstract value function
+\DeclarePairedDelimiterX\norm[1]\lVert\rVert
+  { \ifblank{#1}{\:\cdot\:}{#1} }
+%the norm function
+\DeclarePairedDelimiterX\ceil[1]\lceil\rceil
+  { \ifblank{#1}{\:\cdot\:}{#1} }
+%ceil function
+\DeclarePairedDelimiterX\floor[1]\lfloor\rfloor
+  { \ifblank{#1}{\:\cdot\:}{#1} }
+%floor function
+\DeclarePairedDelimiterX\pairing[2]\langle\rangle
+  { \ifblank{#1}{\:\cdot\:}{#1}, \ifblank{#2}{\:\cdot\:}{#2} }
+\DeclarePairedDelimiterX\inner[2]\lparen\rparen
+  { \ifblank{#1}{\:\cdot\:}{#1}, \ifblank{#2}{\:\cdot\:}{#2} }
+%Inner product
+\providecommand\given{}
+\newcommand\SetSymbol[1][]
+  { \nonscript\:#1\vert\allowbreak\nonscript\:\mathopen{} }
+\DeclarePairedDelimiterX\Set[1]\{\}
+  { \renewcommand\given{\SetSymbol[\delimsize]}#1 }
+%a set
+%
+%Miscellaneous
+\NewDocumentCommand \vect { m } { \mathbf{#1} }
+%Vector
+\RenewDocumentCommand \le {} { \leqslant }
+\RenewDocumentCommand \ge {} { \geqslant }
+%Change the inequality symbols
+\NewDocumentCommand \txforall {} {\quad\text{for all}\quad}
+%------------------------
+% Additional math symbols, used for the Math 110 course
+% \DeclareMathOperator*\gcd{GCD}
+\DeclareMathOperator*\lcm{lcm}
+%------------------------
+\allowdisplaybreaks
+%Allow a long equation to display in more than one page.
+
+%The following change the default layout of title
+\makeatletter
+\def\@maketitle{%
+	\newpage
+	\null
+	\vskip 2em%
+	\begin{center}%
+		\let \footnote \thanks
+		\sffamily 
+		{\LARGE \@title \par}%
+		\vskip 1.5em%
+		{\large \@subtitle \par}%
+		\vskip 1em%
+		{\large \@date}%
+	\end{center}%
+	\par
+	\vskip 1.5em%
+}	
+\global\let\@subtitle\@empty
+\DeclareRobustCommand*{\subtitle}[1]{\gdef\@subtitle{#1}}
+\makeatother
+%Leave this change alone if you don't know what it means
+
+%------------------------
+%Information of the file
+%------------------------
+\title{Homework 1}
+%The title of the file
+\author{Xu Gao}
+%The author
+\subtitle{MATH 110~|~Introduction to Number Theory~|~Summer 2023}
+%The subtitle
+\date{} 
+%The date, if commented, the value will be \today
+ 
+%------------------------
+%Document starts here
+%------------------------
+\begin{document}
+\maketitle
+
+\begin{quotation}
+	Whenever you use a result or claim a statement, provide a \textbf{justification} or a \textbf{proof}, unless it has been covered in the class. In the later case, provide a \textbf{citation} (such as ``by the \emph{2-out-of-3 principle}'' or ``by Coro. 0.31 in the textbook'').
+
+	You are encouraged to \emph{discuss} the problems with your peers. However, you must write the homework \textbf{by yourself} using your words and \textbf{acknowledge your collaborators}.
+\end{quotation}
+\vspace*{1em}
+
+\begin{problem}
+	Let $a_1,\cdots,a_n$ be $n$ integers. We will use the notation $\gcd\limits_{1\le i\le n}a_i$ to denote the \emph{greatest common divisor of $a_1,\cdots,a_n$} and the notation $\lcm\limits_{1\le i\le n}a_i$ to denote the \emph{least common multiple of $a_1,\cdots,a_n$}. 
+	
+	
+	Mimicking the proof of the attached proposition, show that: 
+	\begin{quote}
+		For any matrix $(a_{ij})_{1\le i\le n, 1\le j\le m}$ of integers, we have 
+		\[
+			\lcm_{1\le i\le n}\gcd_{1\le j\le m} a_{ij} \mid 
+			\gcd_{1\le j\le m}\lcm_{1\le i\le n} a_{ij}.
+		\]
+	\end{quote}
+	\begin{hint}
+		What facts are used in the proof?
+	\end{hint}
+	\begin{tcolorbox}
+		\begin{propstar}\label{prop}
+			Let $(x_{ij})_{1\le i\le n, 1\le j\le m}$ be a matrix of real numbers, then we have 
+			\[
+				\max_{1\le i\le n}\min_{1\le j\le m} x_{ij} \le 
+				\min_{1\le j\le m}\max_{1\le i\le n} x_{ij}.
+			\]
+		\end{propstar}
+		\begin{proof}
+			Define $f(i)$ ($1\le i\le n$) to be $\min\limits_{1\le j\le m}x_{ij}$. Then we have 
+			\[
+				f(i) \le x_{ij} \txforall 1\le i\le n, 1\le j\le m.
+			\]
+			Therefore, we have 
+			\[
+				\max_{1\le i\le n}f(i) \le \max_{1\le i\le n} x_{ij} 
+				\txforall 1\le j\le m.
+			\]
+			In particular, we have 
+			\[
+				\max_{1\le i\le n}f(i) \le \min_{1\le j\le m}\max_{1\le i\le n} x_{ij}
+			\]
+			as desired.
+		\end{proof}
+	\end{tcolorbox}
+\end{problem}
+\vspace*{1em}
+
+\begin{problem}
+	This problem is a $3$-varibales analogy of the material covered in lectures.
+	\begin{listinprob}
+		\item Prove that there exists no integer solution $(x, y, z)$ to the equation 
+		\[
+			18x - 27y + 39z = 4.
+		\]
+		\item Find \textbf{an} integer solution $(x, y, z)$ to the equation $18x - 27y + 39z = 6$. 
+		\item Find \textbf{all} the integer solutions $(x, y, z)$ to the equation $18x - 27y + 39z = 6$. 
+		Your answer should give explicit formulae for $x, y, z$ in terms of two free independent integer parameters $m$ and $n$.
+	\end{listinprob}
+\end{problem}
+\vspace*{1em}
+
+\begin{center}
+	\texttt{Read Chapter 2 to finish the following problems.}
+\end{center}
+
+\begin{problem}
+	Let $a$, $b$ and $n$ be positive integers. \texttt{Prove} that 
+	\begin{listinprob}
+		\item $\gcd(a^n,b^n) = \gcd(a,b)^n$ and $\lcm(a^n,b^n) = \lcm(a,b)^n$;
+		\item $\gcd(a\cdot n,b\cdot n) = \gcd(a,b)\cdot n$ and $\lcm(a\cdot n,b\cdot n) = \lcm(a,b)\cdot n$;
+	\end{listinprob}
+\end{problem}
+\vspace*{1em}
+
+\begin{problem}
+	Let $n$ be any positive integer. \texttt{Prove} that there exists a positive integer $k$ (depending on $n$) such that the following list of $n$ consecutive integers:
+	\[
+		k, k + 1, \cdots, k + n - 1
+	\]
+	contains \emph{no} prime number at all.
+	\begin{hint}
+		Use the factorial (but $k=n!$ is NOT the correct answer, start from this and try to see what are missing). You also need the \emph{2-out-of-3} property of division.
+	\end{hint}
+\end{problem}
+
+
+\end{document}

@@ -1,0 +1,434 @@
+%LaTeX Template 
+%%	by	Xu Gao (gausyu@gmail.com)
+%%LPPL: http://www.latex-project.org/lppl.txt
+%------------------------
+%The following is the Preamble
+%------------------------
+\documentclass[11pt]{article}
+%This is the document class. 
+%%	Most common: article, beamer, book, etc.
+%%	11pt means the default font size is 11pt. One can also use 10pt, 11pt, or 12pt.
+%%	See https://en.wikibooks.org/wiki/LaTeX/Document_Structure#Document_classes for explaination.
+%------------------------
+%Packages
+%------------------------
+\usepackage[a4paper,total={6in, 9in}]{geometry} 
+%This aims to customize page layout
+\usepackage[T1]{fontenc}
+%Using T1 font
+\usepackage{mathtools}
+%The main MATH package (for whom may wonder, mathtools load amsmath automatically, so no need \usepackage{amsmath})
+\usepackage{amsthm}
+%This defines the theorem enviroments
+\usepackage{amssymb}
+%Math symbols
+\usepackage{bm}
+%Bold math fonts, provide \bm{} command
+\usepackage[scr=rsfs,cal=euler]{mathalpha}
+%Math fonts 
+%%The package provides means of loading maths alphabets (such as are normally addressed via macros \mathcal, \mathbb, \mathfrak and \mathscr)
+%%How to use? "scr=" set what font \mathscr use, "cal=" set what font \mathcal use, "bb=" set what font \mathbb use, and "frak=" set what font \mathfrak use.
+\usepackage{tikz}
+%Drawing
+\usepackage{graphicx}
+%Support for graphics
+\usepackage{hyperref}
+\usepackage[nameinlink]{cleveref}
+%Hyper links
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	urlcolor=magenta,
+	citecolor=blue
+}
+%Color links
+\usepackage{etoolbox}
+%Programming
+\usepackage[shortlabels]{enumitem}
+%Enable enumerate modification
+\usepackage{tcolorbox}
+%provides an environment for coloured and framed text boxes with a heading line.
+\tcbset{colback=white}
+%------------------------
+%Theorem-like Enviroments
+%------------------------
+\theoremstyle{plain}
+%This is the theorem style, plain means blod title and italic body
+\newtheorem{theorem}{Theorem}[section]
+%This is how you define a theorem-like enviroment.
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+%The option [equation] means the lemmas are numbered following the same system of equation.
+\newtheorem*{propstar}{Proposition}
+%Star version defines unnumbered enviroments
+\theoremstyle{definition}
+%This is the theorem style, definition means blod title and normal body
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+%The option [equation] means the examples are numbered following the same system of equation.
+\newtheorem{problem}{Problem}
+\Crefname{problem}{problem}{problems}
+\Crefname{problem}{Problem}{Problems}
+%This is the enviroment used as problems in HWs.
+\theoremstyle{remark}
+%This is the theorem style, remark means italic title and normal body
+\newtheorem*{remark}{Remark}
+\newtheorem*{hint}{Hint}
+\newtheorem*{optional}{Optional}
+%Remark enviroment
+\numberwithin{equation}{section}
+%Let equations be numbered with in each problems.
+\NewDocumentEnvironment{solution} {o+b} 
+{\begin{proof}[\IfNoValueTF{#1}{\textbf{Solution}}{\textbf{Solution} (#1)}]#2\end{proof}}{}
+%This defines the enviroment for you to write solutions.
+%------------------------
+\newlist{listinprob}{enumerate}{1}
+\setlist[listinprob]{label=(\alph{listinprobi}),
+									ref=\theproblem.(\alph{listinprobi}),
+									noitemsep}
+\Crefname{listinprobi}{problem}{problems}
+\Crefname{listinprobi}{Problem}{Problems}
+%This defines a new list type used in the enviroment problem.
+%------------------------
+%DocumentCommands
+%------------------------
+%Notations for number sets
+\NewDocumentCommand \N {} { \mathbb{N} }%Natural numbers
+\NewDocumentCommand \Z {} { \mathbb{Z} }%Integers
+\NewDocumentCommand \Q {} { \mathbb{Q} }%Rational Numbers
+\NewDocumentCommand \R {} { \mathbb{R} }%Real Numbers
+\NewDocumentCommand \C {} { \mathbb{C} }%Complex Numbers
+\NewDocumentCommand \F {} { \mathbb{F} }%Field
+%Notations for maps
+\DeclareMathOperator{\id}{id} % identity
+\DeclareMathOperator{\pr}{pr} % projection
+\DeclareMathOperator{\pt}{pt} % point
+\DeclareMathOperator{\res}{res} % restriction
+%PairedDelimiters
+\DeclarePairedDelimiterX\abs[1]\lvert\rvert
+	{ \ifblank{#1}{\:\cdot\:}{#1} }
+%abstract value function
+\DeclarePairedDelimiterX\norm[1]\lVert\rVert
+	{ \ifblank{#1}{\:\cdot\:}{#1} }
+%the norm function
+\DeclarePairedDelimiterX\ceil[1]\lceil\rceil
+	{ \ifblank{#1}{\:\cdot\:}{#1} }
+%ceil function
+\DeclarePairedDelimiterX\floor[1]\lfloor\rfloor
+	{ \ifblank{#1}{\:\cdot\:}{#1} }
+%floor function
+\DeclarePairedDelimiterX\pairing[2]\langle\rangle
+	{ \ifblank{#1}{\:\cdot\:}{#1}, \ifblank{#2}{\:\cdot\:}{#2} }
+\DeclarePairedDelimiterX\inner[2]\lparen\rparen
+	{ \ifblank{#1}{\:\cdot\:}{#1}, \ifblank{#2}{\:\cdot\:}{#2} }
+%Inner product
+\providecommand\given{}
+\newcommand\SetSymbol[1][]
+	{ \nonscript\:#1\vert\allowbreak\nonscript\:\mathopen{} }
+\DeclarePairedDelimiterX\Set[1]\{\}
+	{ \renewcommand\given{\SetSymbol[\delimsize]}#1 }
+%a set
+%
+%Miscellaneous
+\NewDocumentCommand \vect { m } { \mathbf{#1} }
+%Vector
+\RenewDocumentCommand \le {} { \leqslant }
+\RenewDocumentCommand \ge {} { \geqslant }
+%Change the inequality symbols
+\NewDocumentCommand \txforall {} {\quad\text{for all}\quad}
+%------------------------
+% Additional math symbols, used for the Math 110 course
+% \DeclareMathOperator*\GCD{GCD}
+\DeclareMathOperator*\lcm{lcm}
+%------------------------
+\allowdisplaybreaks
+%Allow a long equation to display in more than one page.
+
+%The following change the default layout of title
+\makeatletter
+\def\@maketitle{%
+	\newpage
+	\null
+	\vskip 2em%
+	\begin{center}%
+		\let \footnote \thanks
+		\sffamily 
+		{\LARGE \@title \par}%
+		\vskip 1.5em%
+		{\large \@subtitle \par}%
+		\vskip 1.5em%
+		{\large Student name: \@author \par}%
+		\ifdefempty{\@acknowledge}{}%
+		{\large With help of: \@acknowledge \par}%
+		\vskip 1em%
+		{\large \@date}%
+	\end{center}%
+	\par
+	\vskip 1.5em%
+}	
+\global\let\@subtitle\@empty
+\DeclareRobustCommand*{\subtitle}[1]{\gdef\@subtitle{#1}}
+\global\let\@acknowledge\@empty
+\DeclareRobustCommand*{\acknowledge}[1]{\gdef\@acknowledge{#1}}
+\makeatother
+%Leave this change alone if you don't know what it means
+
+%------------------------
+%Information of the file
+%------------------------
+\title{Möbius Inversion Formula}
+%The title of the essay
+\author{[Your Full Name Here]}
+%Input your full name here.
+% \acknowledge{[Your collaborators]}
+%Input your collaborators, if none, comment it.
+\subtitle{MATH 110~|~Introduction to Number Theory~|~Summer 2023}
+%The subtitle
+\date{\today} 
+%The date, if commented, the value will be \today
+
+%------------------------
+%Document starts here
+%------------------------
+\begin{document}
+\maketitle
+
+Arithmetic functions play a crucial role in number theory, providing insights into the fundamental properties of integers. 
+The \emph{Möbius inversion formula}, introduced into number theory in 1832 by August Ferdinand Möbius, serves as a bridge between different arithmetic functions, allowing us to deduce properties and reveal hidden relationships between them. 
+In this essay, we will delve into the world of arithmetic functions, introducing relevant concepts and providing a proof of the Möbius inversion formula.
+
+This essay is organized as follows: 
+In \Cref{sec:1}, we will introduce the statement of the formula. 
+Moving on to \Cref{sec:2}, we will delve into the concept of \emph{Dirichlet convolution} and explore its fundamental properties, providing the necessary groundwork for the subsequent proof.
+In the conclusive \Cref{sec:3}, we will utilize Dirichlet convolution to present a proof of the Möbius inversion formula. 
+Finally, in \Cref{sec:4}, we will demonstrate a practical application of the Möbius inversion formula by showcasing its usage on the \emph{Euler totient function}.
+
+\section{The Möbius function and the inversion formula}\label{sec:1}
+
+To state the Möbius inversion formula, we need the following notions.
+\begin{definition}
+	We say that a positive integer $n$ is \emph{square-free} if $n$ is not divisible by $p^2$ for any prime number $p$.  
+	The \emph{Möbius function} is defined as follows:
+	\[
+		\mu(n) := 
+		\begin{dcases*}
+			1 & if $n=1$,\\
+			0 & if $n$ is not sqaure-free,\\
+			(-1)^{t} & if $n$ is sqaure-free and has exactly $t$ prime divisors.
+		\end{dcases*}
+	\]
+\end{definition}
+The Möbius function $\mu$ is an \emph{arithmetic function}. Namely, it is a complex-valued function defined on the set $\Z_{+}$ of positive integers.
+\begin{definition}
+	The \emph{Möbius transformation} of an arithmetic function $f$ is the function $\widehat{f}$ defined by the formula 
+	\begin{equation}\label{eq:1}
+		\widehat{f}(n) := \sum_{d\mid n} f(d).
+	\end{equation} 
+\end{definition}
+
+Then the Möbius inversion formula can be stated as follows.
+\begin{theorem}[Möbius inversion formula]\label{thm:mif}
+	For any arithmetic function $f$, we have 
+	\begin{equation}\label{eq:2}
+		f(n) = \sum_{d\mid n} \mu(\frac{n}{d})\widehat{f}(d).
+	\end{equation}
+\end{theorem}
+
+\section{Dirichlet convolution}\label{sec:2}
+To better understand the Möbius inversion formula, we introduce the following concept.
+\begin{definition}
+	Given two arithmetic functions $f$ and $g$, their \emph{Dirichlet convolution}, denoted as $f \star g$, is defined as follows:
+	\begin{equation} 
+		(f \star g)(n) = \sum_{d|n} f(d)g\left(\frac{n}{d}\right) 
+	\end{equation}
+	where the summation is taken over the divisor set $\mathscr{D}(n):=\Set*{ d \given d \text{ is a divisor of } n }$. 
+\end{definition}
+
+The basic property of Dirichlet convolution is the following.
+\begin{theorem}
+	The set of arithmetic functions, together with the Dirichlet convolution, forms a commutative monoid. 
+	Namely, the followings hold.
+	\begin{enumerate}
+		\item The binary operation $\star$ is \emph{associative}: for any arithmetic functions $f$, $g$, and $h$, 
+		\begin{equation}
+			(f\star g)\star h = f\star (g\star h).
+		\end{equation}
+		\item The binary operation $\star$ has a \emph{neutral element}. 
+		Indeed, let $\delta$ be the function defined as follows:
+		\begin{equation*}
+			\delta(n) := 
+			\begin{dcases*}
+				1 & if $n=1$,\\
+				0 & if otherwise.
+			\end{dcases*}
+		\end{equation*}
+		Then $\delta$ is a \emph{neutral element} for the binary operation $\star$: for any arithmetic function $f$, 
+		\begin{equation}
+			\delta\star f = f\star\delta = f.
+		\end{equation}
+		\item The binary operation $\star$ is \emph{commutative}: for any arithmetic functions $f$ and $g$, 
+		\begin{equation}
+			f\star g = g\star f.
+		\end{equation}
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+	{\color{red} (PROOF NEED TO BE FILLED)}
+\end{proof}
+
+Among all arithmetic functions, the \emph{multiplicative} one usually play special roles. 
+\begin{definition}
+	An arithmetic function $f$ is said to be \emph{multiplicative}, if for any pair of coprime positive integers $(m,n)$, we have 
+	\[
+		f(mn) = f(m)f(n).
+	\]
+\end{definition}
+We can restrict Dirichlet convolution on the subset of multiplicative functions.
+\begin{proposition}
+	The subset of multiplicative functions, together with the Dirichlet convolution, forms a submonoid of the commutative monoid of all arithmetic functions. Namely, we have:
+	\begin{enumerate}
+		\item The subset of multiplicative functions is closed under the binary operation $\star$: for any arithmetic functions $f$ and $g$, if both $f$ and $g$ are multiplicative, then $f\star g$ is also multiplicative.
+		\item The subset of multiplicative functions contains the neutral element $\delta$ of the binary operation $\star$.
+	\end{enumerate}
+\end{proposition}
+\begin{proof}
+	{\color{red} (PROOF NEED TO BE FILLED)}
+\end{proof}
+
+It is worth to note that
+\begin{proposition}
+	The Möbius function $\mu$ is multiplicative.
+\end{proposition}
+\begin{proof}
+	{\color{red} (PROOF NEED TO BE FILLED)}
+\end{proof}
+
+\section{Proof of the Möbius Inversion Formula}\label{sec:3}
+With the foundation of Dirichlet convolution in place, we are ready to present the proof of the Möbius inversion formula. 
+
+We first note that 
+\begin{lemma}\label{lem:mi}
+	For any arithmetic function $f$, its M\"obius transformation $\widehat{f}$ is $f\star\bm{1}$. 
+	Where $\bm{1}$ is the constant function mapping any positive integer to $1$. 
+\end{lemma}
+\begin{proof}
+	{\color{red} (PROOF NEED TO BE FILLED)}
+\end{proof}
+\begin{corollary}\label{cor:mtism}
+	The M\"obius transformation of a multiplicative function is also multiplicative.
+\end{corollary}
+\begin{proof}
+	{\color{red} (PROOF NEED TO BE FILLED)}
+\end{proof}
+
+Moreover, we have 
+\begin{lemma}\label{lem:muone=delta}
+	The Möbius function $\mu$ is the inverse of $\bm{1}$ under the binary operation $\star$. 
+	Namely, $\bm{1}\star\mu = \delta$.
+\end{lemma}
+\begin{proof}
+	{\color{red} (PROOF NEED TO BE FILLED)}
+\end{proof}
+
+Now, we can restate \Cref{thm:mif} using Dirichlet convolution.
+\begin{theorem}\label{thm:mif-2}
+	For any arithmetic function $f$, we have 
+	\begin{equation}\label{eq:thm9}
+		f = \widehat{f}\star\mu.
+	\end{equation}
+\end{theorem}
+Indeed, \Cref{eq:2,eq:thm9} are equivalent: {\color{red} (PROOF NEED TO BE FILLED)}
+
+We are now able to demonstrate the proof of \Cref{thm:mif-2}.
+\begin{proof}
+	We have 
+	\begin{align*}
+		\widehat{f}\star\mu 
+		&= (f\star\bm{1})\star\mu &\text{by \Cref{lem:mi}}\\
+		&= f\star(\bm{1}\star\mu) &\text{by associativity of $\star$}\\
+		&= f\star\delta &\text{by \Cref{lem:muone=delta}}\\
+		&= f &\text{$\delta$ is the neutral element for $\star$}.
+	\end{align*}
+	This proves \Cref{eq:thm9}.
+\end{proof}
+
+We are thus able to extend \Cref{cor:mtism}:
+\begin{corollary}\label{cor:mitism}
+	An arithmetic function $f$ is multiplicative if and only if its M\"obius transformation $\widehat{f}$ is multiplicative.
+\end{corollary}
+\begin{proof}
+	{\color{red} (PROOF NEED TO BE FILLED)}
+\end{proof}
+
+
+\section{Euler totient function}\label{sec:4}
+We will use the Möbius inversion formula to obtain some properties of the \emph{Euler totient function}.
+\begin{definition}
+	The \emph{Euler totient function} $\varphi(n)$ counts the set $\Phi(n)$ of integers from $0$ to $n-1$ which are coprime to $n$.
+\end{definition}
+
+Our key step is:
+\begin{theorem}
+	Let $\id$ denote the identity map.
+	Then $\id$ is the Möbius transformation of the Euler totient function $\varphi$.
+\end{theorem}
+\begin{proof}
+	{\color{red} (PROOF NEED TO BE FILLED)}
+\end{proof}
+
+Then we have the followings.
+\begin{corollary}
+	The Euler totient function $\varphi$ is multiplicative.
+\end{corollary}
+\begin{proof}
+	First note that $\id$ is multiplicative: {\color{red} (PROOF NEED TO BE FILLED)}.
+
+	Since $\id$ is the Möbius transformation of $\varphi$, by \Cref{cor:mitism}, $\varphi$ is also multiplicative. 
+\end{proof}
+
+\begin{corollary}
+	We have the following formula.
+	\begin{equation}\label{eq:totient}
+		\varphi(n) = 
+		n
+		\prod_{\text{$p$ is a prime divisor of $n$}}
+		\left(1-\frac{1}{p}\right).
+	\end{equation}
+\end{corollary}
+\begin{proof}
+	Suppose the prime factorization of $n$ gives 
+	\[
+		n = \prod_{\text{$p$ is a prime divisor of $n$}}p^{e_p}.
+	\]
+	Then by the multiplicativity of $\varphi$, we have 
+	\[
+		\varphi(n) = \prod_{\text{$p$ is a prime divisor of $n$}}\varphi(p^{e_p}).
+	\]
+	On the other hand, the right-hand side of \Cref{eq:totient} can be written as 
+	\[
+		\prod_{\text{$p$ is a prime divisor of $n$}}\left(p^{e_p}1-p^{e_p-1}\right).
+	\]
+	Hence, it suffices to proof the following lemma:
+	\begin{lemma}
+		For any prime $p$ and any positive integer $e$, we have $\varphi(p^e)=p^e-p^{e-1}$.
+	\end{lemma}
+	\begin{proof}
+		{\color{red} (PROOF NEED TO BE FILLED)}
+	\end{proof}
+	Now \Cref{eq:totient} follows by previous argument.
+\end{proof}
+
+
+%%%	List your reference here
+%------------------------
+\begin{thebibliography}{9}  %Do not delete
+
+\bibitem[TEXT]{texbook}
+\emph{An Illustrated Theory of Numbers}, Martin H. Weissman. % this is our textbook
+
+% Modify as needed
+
+\end{thebibliography}  %Do not delete
+%------------------------
+\end{document}
